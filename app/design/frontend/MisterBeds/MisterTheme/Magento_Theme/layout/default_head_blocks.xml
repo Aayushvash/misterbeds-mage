@@ -5,7 +5,7 @@
  * See COPYING.txt for license details.
  */
 -->
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<!--<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <font src="fonts/opensans/light/opensans-300.woff2"/>
@@ -13,5 +13,20 @@
         <font src="fonts/opensans/semibold/opensans-600.woff2"/>
         <font src="fonts/opensans/bold/opensans-700.woff2"/>
         <font src="fonts/Luma-Icons.woff2"/>
+    </head>
+
+</page> -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- style CSS
+        ============================================ --> 
+        <link rel="stylesheet" type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" src_type="url" />             
+        <css  src="css/owl.carousel.min.css"/>
+        <css  src="fonts/fonts.css"/>
+        <css  src="css/slick.css"/>
+        <css  src="css/all.min.css"/>
+        <css  src="css/layout.css"/>
+        <css  src="css/bootstrap.min.css"/>
+        <css  src="css/custom.css"/>
     </head>
 </page>

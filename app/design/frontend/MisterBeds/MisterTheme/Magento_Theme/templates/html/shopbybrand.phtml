@@ -1,0 +1,44 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+$blockObj = $objectManager->get('\Ves\Brand\Model\Brand');
+
+$_brandCollection = $blockObj->getCollection()
+->setOrder('position','ASC')           
+->addFieldToFilter('status',1);
+
+//$blockObj= $this->getLayout()->createBlock('\Ves\Brand\Block\Brandlist');
+
+//$_brandCollection = $this->getBrandCollection();
+//$show_brand_name = $this->getConfig('brand_list_page/show_brand_name');
+//echo $_brandCollection->getSelect()->__toString();
+
+
+$mediaUrl =  $this->getUrl('pub/media');
+if(count($_brandCollection) > 0):
+  ?>
+
+      <div class="container">
+<div class="title">
+<h2><?php echo __('We work with the following brands') ?></h2>
+<a href="<?php echo $this->getUrl('brands.html') ?>"><?php echo __('View all brands') ?></a></div>
+
+<div class="row">
+
+          <?php $c = 0; foreach($_brandCollection as $key => $_brand):  
+          if ($c == 12) { break; }
+          ?>
+        
+          <div class="col2">
+            <a href="<?php echo $_brand->getUrl(); ?>">
+              <figure>
+                <img alt="<?php echo  $_brand->getName();?>" class="img-responsive" src="<?php echo $_brand->getThumbnailUrl(); ?>">
+              </figure>
+            </a>
+          </div>
+          <?php $c++; endforeach; ?>
+ </div>
+         
+<?php endif; ?>
+

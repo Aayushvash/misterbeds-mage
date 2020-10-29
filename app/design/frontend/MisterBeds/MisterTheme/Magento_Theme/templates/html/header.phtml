@@ -1,0 +1,46 @@
+<!--begin template -->
+<section id="template">
+	
+	<!-- begin layout -->
+	<section id="layout">
+		
+		<!-- begin header -->
+		<header id="header-wrap">
+			<div class="headertop">
+				<i></i> Gratis Thuisbezorgd
+			</div>
+			<div class="headermiddle">
+				<div class="container">
+					<div class="row">
+						<div class="header-left">
+							<div class="mtoggle"><div></div><div></div>MENU</div>
+							<div class="logo"><a href="<?php echo $this->getBaseUrl();?>"><?php echo $this->getChildHtml("logo"); ?></a>
+							</div>
+						</div>
+						<div class="header-right">
+							<div class="search-panel">
+								 <?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Search::form.mini.phtml")->toHtml();?>
+								 <?php /* ?>
+								<input type="text" placeholder="Waar ben je naar op zoek?"/>
+								<input type="submit" />
+								<?php */ ?>
+							</div>
+							<div class="rightlinks">
+								<a href="#" class="favbtn"></a>
+								<a href="https://dev.misterbed.nl/customer/account" class="profilebtn"></a>
+								<a href="#" class="addtocartbtn"><?php echo $this->getChildHtml("minicart"); ?></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="headerbottom">
+				<div class="container">
+					<?php 
+					echo $this->getChildHtml('catalog.topnav');
+					?>
+				</div>
+			</div>
+		</header>
+		
+				

@@ -1,0 +1,134 @@
+<!--begin section -->
+<section id="section">
+	
+	<!-- begin page-wrap -->
+	<section id="page-wrap">
+		
+		<!-- begin header -->
+		<header id="header-wrap">
+            <div class="service-block">
+                <div class="container">
+                    <div class="inner-block">
+                           <?php echo $this->getLayout()
+                              ->createBlock('Magento\Cms\Block\Block')
+                              ->setBlockId('header_top_1')
+                              ->toHtml();
+                              ?>
+                        <div class="right-panel">
+                        	<?php echo $this->getLayout()
+                              ->createBlock('Magento\Cms\Block\Block')
+                              ->setBlockId('header_top_middel')
+                              ->toHtml();
+                              $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+							  $objDate = $objectManager->create('Magento\Framework\Stdlib\DateTime\DateTime');
+							  $date = $objDate->gmtDate('H:i:s a');
+							  /*$date1 = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
+                              $date22=$date1->format('H:i:s a');*/
+							  if($date<='17:00:00 pm')
+							  {
+							  	echo '<div class="t1"></div>';
+							  }
+							  else
+							  {
+							  	echo '<div class="t2"></div>';
+							  }
+                              ?>
+
+                            <?php echo $this->getChildHtml('store_language'); ?>
+                             <?php echo $this->getLayout()
+                                  ->createBlock('Magento\Cms\Block\Block')
+                                  ->setBlockId('header_top_2')
+                                  ->toHtml();
+                                  ?>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- --------------------Language mobile View start ----------------------- -->
+<div class="header_language">
+  <div class="container">
+    <div class="row">
+      <div class="lang_section">
+        <div class="lang_wrap">
+          <div class="all_language">
+            <ul class="text_l">
+              <li><a href="https://www.4x4center.nl/stores/store/redirect/___store/nl/___from_store/en/uenc/aHR0cDovL2RldnNlcnZlcjMubmwvP19fX3N0b3JlPW5s/"><img src="https://www.4x4center.nl/pub/static/frontend/4x4center/centertheme/nl_NL/images/flag_nl.svg" alt=""></a></li>
+              <li><a href="https://www.4x4center.nl/stores/store/redirect/___store/nl/___from_store/en/uenc/aHR0cDovL2RldnNlcnZlcjMubmwvP19fX3N0b3JlPW5s/">Nederlands</a></li>
+            </ul>
+          </div>
+          <div class="all_language">
+            <ul>
+              <li><a href="https://www.4x4center.nl/stores/store/redirect/___store/en/___from_store/nl/uenc/aHR0cDovL2RldnNlcnZlcjMubmwvP19fX3N0b3JlPWVu/"><img src="https://www.4x4center.nl/pub/static/frontend/4x4center/centertheme/nl_NL/images/flag_en.svg"></a></li>
+              <li><a href="https://www.4x4center.nl/stores/store/redirect/___store/en/___from_store/nl/uenc/aHR0cDovL2RldnNlcnZlcjMubmwvP19fX3N0b3JlPWVu/">English</a></li>
+            </ul>
+          </div>
+          <div class="all_language">
+            <ul class="text_r">
+              <li><a href="https://www.4x4center.nl/stores/store/redirect/___store/de/___from_store/nl/uenc/aHR0cDovL2RldnNlcnZlcjMubmwvP19fX3N0b3JlPWRl/"><img src="https://www.4x4center.nl/pub/static/frontend/4x4center/centertheme/nl_NL/images/flag_de.svg"></a></li>
+              <li><a href="https://www.4x4center.nl/stores/store/redirect/___store/de/___from_store/nl/uenc/aHR0cDovL2RldnNlcnZlcjMubmwvP19fX3N0b3JlPWRl/">Deutsch</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------Language mobile View end ----------------------- -->
+
+			<div class="header-middle-block">
+				<div class="container">
+					<div class="inner">
+						<div class="logo">
+							<a href="<?php echo $this->getBaseUrl();?>"><?php echo $this->getChildHtml("logo"); ?></a>
+							</div>
+						<div class="search-panel">
+							 <?php echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Search::form.mini.phtml")->toHtml();?>
+						</div>
+						<div class="kiyoh-panel">
+						 <?php //echo $this->getLayout()
+					              //->createBlock('Magento\Cms\Block\Block')
+					              //->setBlockId('search_bar_content')
+					             // ->toHtml();
+							$get = file_get_contents('https://www.klantenvertellen.nl/v1/review/feed.xml?hash=rp50k2byspkgmll');
+							$arr = simplexml_load_string($get);
+							$array = json_decode(json_encode($arr), true);
+							$last12MonthAverageRating=$array['averageRating'];
+							$numberReviews=$array['numberReviews'];
+					        ?>
+						 <div class="ratings-panel">
+							<div class="star"><img src="<?php echo $this->getViewFileUrl('images/star.png'); ?>"><span><?php echo $last12MonthAverageRating; ?></span></div>
+							<div class="link"><img src="<?php echo $this->getViewFileUrl('images/bitmap.png'); ?>"> <a href="https://www.klantenvertellen.nl/reviews/1052542/auto-connections?lang=nl" target="-Blank"><?php echo $numberReviews; ?> beoordelingen</a></div>
+							</div> 
+							<div class="login-cart-panel">
+								<ul>
+								<li class="profile"><a href="https://www.4x4center.nl/customer/account"><i class="fas fa-user-circle"></i></a></li>
+								<li class="addtocart"><?php echo $this->getChildHtml("minicart"); ?></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="header-bottom-block">
+				<div class="container">
+					<div class="search-panel mobile_search">
+						<?php echo $this->getLayout()->getBlock('top.search.mobile')->toHtml(); ?>
+						</div>
+					<?php 
+					echo $this->getChildHtml('catalog.topnav');
+					?>
+				</div>
+			</div>
+			<div class="usp-block">
+				<?php echo $this->getLayout()
+					              ->createBlock('Magento\Cms\Block\Block')
+					              ->setBlockId('header_top_3')
+					              ->toHtml();
+					              ?>
+			</div>
+		</header>
+		<!-- finish header -->	
+				

@@ -1,0 +1,99 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @var $block \Magento\Theme\Block\Html\Topmenu
+ */
+?>
+<?php $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
+<?php $_menu = $block->getHtml('level-top', 'submenu', $columnsLimit) ?>
+
+<nav class="nav-block" data-action="navigation">
+<ul>	
+    <?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();       
+$categoryFactory = $objectManager->create('Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+   $categories = $categoryFactory->create()
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('level','2')
+                ->setOrder('position', 'ASC');
+
+foreach ($categories as $category) { 
+	 $catId=$category->getId();
+	 $childrenid=$category->getChildren();
+
+	 
+ ?> 
+ <li class="<?php if($childrenid){echo 'active'; }else{echo "";} ?>">
+    <a href="<?php echo $category->getUrl();?>"><?php echo $category->getName() ;?></a> 
+<?php
+    $subCategory = $objectManager->create('Magento\Catalog\Model\Category')->load($catId);
+    $subCats = $subCategory->getChildrenCategories();
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+    ?>
+    <div class="sub-menu">
+	<div class="sub-menu-inner">
+    <div class="col-md-8">    
+    <div class="row">
+    <?php  
+    foreach ($subCats as $subcat) {
+    	?>
+    <div class="col-md-3">  
+    <div class="m-panel">   
+	<ul>	
+		<li>
+		<a href="<?php echo $subcat->getUrl();?>">
+		<strong><?php echo $subcat->getName();?></strong>
+		</a>
+	    </li>
+    	<?php
+    	$subCategory1 = $objectManager->create('Magento\Catalog\Model\Category')->load($subcat->getId());
+        $subCats1 = $subCategory1->getChildrenCategories();
+    	foreach ($subCats1 as  $value) {
+    	?>
+    	<li>
+		<a href="<?php echo $value->getUrl();?>">
+		<?php echo $value->getName();?>
+		</a>
+	    </li>
+    	<?php	
+    	}
+    	?>
+    	</ul>
+      </div>  
+     </div>
+    <?php }
+?>
+</div>
+</div>
+<div calss="col-md-4">
+       <div class="discount-panel">
+        <figure><img src="<?php echo $block->getViewFileUrl('images/img2.png');?>" alt="" /><span><strong>5%</strong>korting</span></figure>
+            <div class="text">
+        <p>5% Korting op alle douche racks van Frontrunner in oktober 2019</p>
+        <a href="#" class="primarybtn">Bekijk douche racks</a>
+        </div>
+        </div>
+
+</div>    
+</div>
+</div>
+</li>
+<?php }?> 
+</ul>
+<!-- End categori menu --> <!-- Start categori banner --> 
+</nav>
+<style type="text/css">
+    .discount-panel {
+    width: 100%!important;
+}
+</style>
