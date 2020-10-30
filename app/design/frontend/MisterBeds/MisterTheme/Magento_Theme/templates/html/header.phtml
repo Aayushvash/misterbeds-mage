@@ -26,9 +26,17 @@
 								<?php */ ?>
 							</div>
 							<div class="rightlinks">
-								<a href="#" class="favbtn"></a>
-								<a href="https://dev.misterbed.nl/customer/account" class="profilebtn"></a>
-								<a href="#" class="addtocartbtn"><?php echo $this->getChildHtml("minicart"); ?></a>
+								<ul>
+								<li>	
+									<a href="#" class="favbtn"></a>
+								</li>
+								<li>
+									<a href="https://dev.misterbed.nl/customer/account" class="profilebtn"></a>
+								</li>
+								<li>									
+									<?php echo $this->getChildHtml("minicart"); ?>
+								</li>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -43,4 +51,5 @@
 			</div>
 		</header>
 		
-				
+		<!-- start content -->
+		<section id="content-wrap">		

@@ -1,229 +1,164 @@
-		<!-- begin banner-wrap -->
+		<!-- main-block -->
 		<section id="banner-wrap">
-			<div class="home-banner-block">
-				
-				<?php
-			echo $this->getLayout()
-			->createBlock('Magento\Cms\Block\Block')
-			->setBlockId('home_slider')
-			->toHtml();
-			?>
+			<div class="container">
+				<div class="inner">
+					<div class="row">
+						<?php
+							echo $this->getLayout()
+							->createBlock('Magento\Cms\Block\Block')
+							->setBlockId('home_banner')
+							->toHtml();
+						?>
+						<a href="#" class="downbtn"></a>
+					</div>
+				</div>
 			</div>
 		</section>
-		<!-- finish banner-wrap -->
-		
-		<!-- begin content -->
-		<section id="content-wrap" >
-			<?php
-			echo $this->getLayout()
-			->createBlock('Magento\Cms\Block\Block')
-			->setBlockId('popular_category')
-			->toHtml();
-			?>
-			<!-- begin leftwrap -->
-			
-			<!-- finish leftwrap -->
-					
-			<!-- begin centerwrap -->
-			<section class="product-wrap">
+		<!-- main-block -->
+		<aside class="main-block outlet-block">
 				<div class="container">
-					<?php
-					$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-					$helperImport = $objectManager->get('\Magento\Catalog\Helper\Image');
-					$productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
-					$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
-					$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
-					$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
-					$collection = $productCollection->create()
-					            ->addAttributeToSelect('*')
-					             ->addAttributeToFilter('featured_product', '1')
-					            ->load();
-					 $productcount=$collection->count();
-					 if($productcount==0)
-					 {
-					 	
-					 }
-					 else
-					 {
-					 ?>
-					<h3><?php echo __('Populaire producten') ?></h3>
-					<div class="owl-carousel owl-theme">
-						<?php 
-						foreach ($collection as $product)
-						{
-					     $pname=$product->getName();
-					     $productprice=$product->getPrice();
-					     $producturl=$product->getProductUrl();
-					     $psdescription=$product->getShortDescription();
-					     $formattedPrice = $priceHelper->currency($productprice, true, false);
-					    $imageUrl = $this->getUrl().'pub/media/catalog/product'.$product->getImage();
-					     $addToCartUrl =  $listBlock->getAddToCartUrl($product);
-
-						?>
-						
-						<div class="item" style="width:250px">
-							<div class="product-panel">
-								<div class="top-panel">
-									<figure><a href="<?php echo $producturl ;?>"><img src="<?php echo $imageUrl;?>"></a></figure>
-									<h5><a href="<?php echo $producturl ;?>"><?php echo $pname; ?></a></h5>
-									<div class="ratings">
-										<?php
-										$productId = $product->getId();
-										$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-										$reviewFactory = $objectManager->create('Magento\Review\Model\Review');
-										$product = $objectManager->create('Magento\Catalog\Model\Product')->load($productId);
-										$storeManager  = $objectManager->create('\Magento\Store\Model\StoreManagerInterface');
-										$storeId = $storeManager->getStore()->getStoreId();
-										$reviewFactory->getEntitySummary($product, $storeId);
-
-										$ratingSummary = $product->getRatingSummary()->getRatingSummary();
-										$reviewCount = $product->getRatingSummary()->getReviewsCount();
-										?>
-										<?php if($ratingSummary){ ?>
-										<div class="product-reviews-summary short">
-										    <div class="rating-summary">
-										        <div title="<?php echo (int)$ratingSummary; ?>%" class="rating-result">
-										            <span style="width:<?php echo (int)$ratingSummary; ?>%"><span><?php echo (int)$ratingSummary; ?>%</span></span>
-										        </div>
-										    </div>
-										    <div class="reviews-actions">
-										        <?php echo __(''.$reviewCount.' Reviews'); ?>
-										    </div>
-										</div>
-										<?php } ?>
-										<!-- <span> <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span><sub>21 reviews</sub> --> </div>
-									<div class="usp-block">
-										<?php echo  $psdescription; ?>
-									</div>
-									<div class="price">
-										<span><?php echo $formattedPrice; ?></span>
-										<?php if ($product->isAvailable()) :?>
-                                            <sub><?= $block->escapeHtml(__('In stock')) ?></sub>
-                                        <?php else :?>
-                                           <sub1><?= $block->escapeHtml(__('Out of stock')) ?></sub1>
-                                        <?php endif; ?>
-									</div>
-								</div>
-								<form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post"> 
-							    <?php echo $block->getBlockHtml('formkey')?>
-									<div class="bottom-panel">
-									<div class="field qty">
-	                                <div class="control qty-change">
-	                                <ul class="number">
-	                                <li class="minus">
-	                                <p class="input-group-btn">
-	                                <button class="decreaseqty2">-</button>
-	                                </p>
-	                                </li>
-	                                <input type="hidden"
-	                                name="qty"
-	                                value="1"
-	                                title="<?= /* @escapeNotVerified */ __('Qty') ?>"
-	                                class="input-text qty"
-	                                data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
-	                                />
-	                                <li> 
-	                                <span class="qty-label"> 1 </span>
-	                                </li>
-	                                <li class="plus">
-	                                <p class="input-group-btn"> 
-	                                <button class="increaseqty2">+</button>
-	                                </p>
-	                                </li>
-	                                </ul>
-	                                </div>
-                                </div>
-                        	 <div class="btn">
-							        <button type="submit" title="In winkelwagen" class="action tocart primary">
-							            <span><i class="fas fa-shopping-cart"></i>
-							            	<?php echo __('Add to Cart') ?>
-							            </span>
-							        </button>
-							    </div> 
-                            </div>  
-							 </form>
+					<div class="row row-less10">
+						<div class="col-3">
+							<div class="outlet-panel" style="background: url(./images/img1.png)no-repeat center/cover;">
+								<a href="#" class="primarybtn">Peuterbed</a>
 							</div>
 						</div>
-						<?php  }   ?>
+						<div class="col-3">
+							<div class="outlet-panel" style="background: url(./images/img2.png)no-repeat center/cover;">
+								<a href="#" class="primarybtn">Stapelbed</a>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="outlet-panel" style="background: url(./images/img3.png)no-repeat center/cover;">
+								<a href="#" class="primarybtn">Tienerkamer</a>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="outletblank-panel">
+								<a href="#" class="btn">Outlet <i></i></a>
+							</div>
+						</div>
 					</div>
-				<?php } ?>
 				</div>
-			</section>
-		</section>
-		<!-- finish content -->
-		<script type="text/javascript">
-		    require(["jquery"],function($){
-		    jQuery(".increaseqty2").click(function(e){
-		        e.preventDefault();
-		        var qty = jQuery(this).closest("div.control").find("input");
-		        var newqty = parseInt(qty.val())+parseInt(1);
-		        qty.val(newqty);
-		        var val = qty.val();
-		        var changeQty = parseInt(val);
-		        qtyLabel = jQuery(this).closest("div.control").find("span");
-		        jQuery(qtyLabel).text(changeQty);
-		        return false;
-		    });
+			</aside>
 
-		    jQuery(".decreaseqty2").click(function(){
-		        var qty = jQuery(this).closest("div.control").find("input");
-		        var newqty = parseInt(qty.val())-parseInt(1);
-		        if(newqty < 1){
-		            return false;
-		        }
-		        qty.val(newqty);
-		        var val = qty.val();
-		        var changeQty = parseInt(val);
-		        qtyLabel = jQuery(this).closest("div.control").find("span");
-		        jQuery(qtyLabel).text(changeQty);
-		        return false;
+			<aside class="main-block popular-block">
+				<div class="container">
+					<div class="row row-less20">
+						<div class="col-12">
+							<h3>Populair bij Misterbed</h3>
+						</div>
+						<div class="col-3">
+							<div class="popular-panel">
+								<figure>
+									<img src="images/mask-0.png" alt="">
+									<figcaption>Meest Verkocht</figcaption>
+									<i class="fav-icon"></i>
+								</figure>
+								<div class="popular-text">
+									<h4>Carina Ledikant</h4>
+									<div class="d-flex">
+										<span class="pricetag oldpricetag">Elders <sub>€ 500,-</sub></span>
+										<span class="pricetag">Vanaf <sub>€ 300,-</sub></span>
+									</div>
+									<span class="check-list">Uit voorraad leverbaar</span> 
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="popular-panel">
+								<figure>
+									<img src="images/mask-1.png" alt="">
+									<i class="fav-icon full-heart-icon"></i>
+								</figure>
+								<div class="popular-text">
+									<h4>Carina Ledikant</h4>
+									<div class="d-flex">
+										<span class="pricetag oldpricetag">Elders <sub>€ 400,-</sub></span>
+										<span class="pricetag">Nu <sub>€ 200,-</sub></span>
+									</div>
+									<span class="list">Binnen 4 weken in huis</span> 
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="popular-panel">
+								<figure>
+									<img src="images/mask-2.png" alt="">
+									<i class="fav-icon"></i>
+								</figure>
+								<div class="popular-text">
+									<h4>Carina Ledikant</h4>
+									<div class="d-flex">
+										<span class="pricetag oldpricetag"></span>
+										<span class="pricetag">Vanaf <sub>€ 500,-</sub></span>
+									</div>
+									<span class="check-list">Uit voorraad leverbaar</span> 
+								</div>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="popular-panel">
+								<figure>
+									<img src="images/mask-3.png" alt="">
+									<i class="fav-icon"></i>
+								</figure>
+								<div class="popular-text">
+									<h4>Carina Ledikant</h4>
+									<div class="d-flex">
+										<span class="pricetag oldpricetag">Elders <sub>€ 700,-</sub></span>
+										<span class="pricetag">Vanaf <sub>€ 600,-</sub></span>
+									</div>
+									<span class="list">Binnen 4 weken in huis</span> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
 
-		    });
-		});
-		</script>
-		<style type="text/css">
-			.quantityn {
-    	height: 24px!important;
-    	color: #0e0e0e;
-    	font-weight: 900;
-		}
-		input[type="text"]{
-   		 padding: 0px 4px;
-   
-		}
-		button{
-	    background: #ffffff!important;
-	    border: 1px solid #ffffff!important;
-	    color: #333333!important;
-	    font-weight: 700!important;
-	    line-height: 23px!important;
-	    padding: 0px 0px!important; 
-  		}
-  		h4 {
-    		 margin-top: 0rem!important; 
-    		 margin-bottom: 0rem!important; 
-			}
-			.categories-panel h4 a {
-    		color: #000;
-			}
+			<aside class="main-block view-block">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="column-left">
+								<div class="left-caption">
+									<h2>Alles voor een ontspannen zondagochtend</h2>
+									<a href="#" class="btn">Bekijk <i></i></a>
+								</div>
+							</div>	
+							<div class="column-right">
+								<figure style="background: url(./images/m-img-1.png)no-repeat center/cover;">
+									<span class="viewpricetag">Dekbed Bee Bee <em>€38,-</em></span>
+								</figure>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
 
-			 .product-panel .price sub1 {
-    color: red;
-    font-family: 'Raleway', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    position: relative;
-    padding-left: 15px;
-}
-.product-panel .price  sub1:after {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    content: "\f00c";
-    font-family: "Font Awesome 5 Pro";
-    font-style: normal;
-    font-weight: 700;
-    color: red;
-    font-size: 10px;
-}
-		</style>
+			<aside class="main-block services-block">
+				<div class="container">
+					<ul class="row">
+						<li class="col-4">
+							<div class="services-panel">
+								<i class="icons truck-icon"></i>
+								<strong>Gratis thuisbezorgd</strong>
+							</div>
+						</li>
+						<li class="col-4">
+							<div class="services-panel">
+								<i class="icons security-icon"></i>
+								<strong>Ruim 15 jaar online</strong>
+							</div>
+						</li>
+						<li class="col-4">
+							<div class="services-panel">
+								<i class="icons eurohand-icon"></i>
+								<strong>Altijd de beste prijs</strong>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</aside>
+		

@@ -1,222 +1,86 @@
-  <!-- begin content -->
-        <section id="content-wrap" >
-            <section class="accessories-wrap">
-                <div class="container">
-                <div class="row">
-                  <div class="col1">
-                  <div class="accessories-panel">
-                  <h3>Zoek accessoires voor uw 4x4 voertuig</h3>
-                 <form action="https://www.4x4center.nl/catalogsearch/advanced/result/<?php echo $this->getSearchPostUrl() ?>" method="get" id="form-validate">
-                  <?php /* ?>
-                  <select name="automerk" id="groups">
-                    <option ><?= $block->escapeHtml(__('Please Select ...')); ?></option>
-                    <?php
-                      $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-                      $atrributesRepository  = $objectManager->create('\Magento\Catalog\Model\Product\Attribute\Repository');
-                      $automerk = $atrributesRepository->get('automerk')->getOptions();
-                      $i=0;
-                      foreach($automerk as $automerkvalue) {
-                        if($i!=0){
-                       
-                     ?>
-                <option value="<?php echo $automerkvalue->getData('value'); ?>"><?php echo $automerkvalue->getData('label'); ?></option>
-              <?php }$i++;} ?>
-                </select>
-                <?php */ ?>
-                <!-- get autotype -->
-                 <!--  <select name="autotype">
-                  <?php
-                      //$objectManager1 = \Magento\Framework\App\ObjectManager::getInstance();
-                     // $atrributesRepository1  = $objectManager1->create('\Magento\Catalog\Model\Product\Attribute\Repository');
-                     // $autotype = $atrributesRepository1->get('autotype')->getOptions();
-                     // $j=0;
-                     // foreach($autotype as $autotypevalue) {
-                     //   if($j!=0){
-                       
-                     ?>
-                  <option value="<?php //echo $autotypevalue->getData('value'); ?>"><?php //echo $autotypevalue->getData('label'); ?></option>
-              <?php //}$j++;} ?>
-                </select> -->
-                <!-- close autotype -->
-                 <select name="autotype" id="sub_groups">
-                  <option data-group='SHOW' value='0'>Selecteer alstublieft ...</option>
-                               <option data-group='5807' value="5696">Hi Lux</option>
-                                <option data-group='5807'  value="5703">Hi Lux Revo</option>
-                                <option data-group='5807' value="5702">Hi Lux Vigo</option>
-                                <option data-group='5807' value="5722">HZJ</option>
-                                <option data-group='5807' value="5701">HZJ 76</option>
-                                <option data-group='5807' value="5773">HZJ 78</option>
-                                <option data-group='5807'  value="6084">HZJ 79</option>
-                                <option data-group='5807' value="6085">HZJ 76/78</option>
-                                <option data-group='5807' value="6083">HZJ 78/79</option>
-                                <option data-group='5807' value="5772">Land Cruiser 80</option>
-                                <option data-group='5807' value="6081">Land Cruiser 100</option>
-                                <option data-group='5807' value="5792">Land Cruiser 120</option>
-                                <option data-group='5807' value="6082">Land Cruiser 150</option>
-                                <option data-group='5807' value="6080">Land Cruiser 200</option>
-                                <option data-group='5807' value="5709">FJ Cruiser</option>
-                                <option data-group='5807' value="5744">Fortuner </option>
-                                <option data-group='5807' value="5695">RAV4</option>
-                                <option data-group='5814' value="5716">Defender</option>
-                                <option data-group='5814' value="5747">Defender 90</option>
-                                <option data-group='5814' value="5707">Defender 110</option>
-                                <option data-group='5814' value="5748">Defender 130</option>
-                                <option data-group='5814' value="6086">Discovery</option>
-                                <option data-group='5814' value="5774">Discovery 4</option>
-                                <option data-group='5814' value="5775">Range Rover Sport</option>
-                                <option data-group='5811' value="5713">Ranger</option>
-                                <option data-group='5811' value="5699">Ranger T6</option>
-                                <option data-group='5806' value="5697">Amarok</option>
-                                <option data-group='5810' value="5698">D-max</option>
-                                <!-- <option  data-group='5810' value="5715">D-max </option> -->
-                                <option data-group='5810' value="6087">D-tec</option>
-                                <option data-group='5809' value="5723">G-klasse</option>
-                                <option data-group='5809' value="5714">X-klasse</option>
-                                <option data-group='5813' value="5705">L200</option>
-                                <option data-group='5813' value="5784">L200/Triton</option>
-                                <option data-group='5813' value="5785">Pajero</option>
-                                <option data-group='5813' value="5786">Pajero Sport</option>
-                                <option data-group='5808' value="5704">Navara</option>
-                                <option data-group='5808' value="5787">Navara NP300</option>
-                                <option data-group='5815' value="5776">BT-50</option>
-                                <option data-group='5808' value="5788">Pathfinder</option>
-                                <option data-group='5808' value="5789">Patrol GR / Y61</option>
-                                <option data-group='5812' value="5700">Fullback</option>
-                              </select>
-                    <button class="button action primary" title="<?= $block->escapeHtml(__('Search')); ?>"
-                            type="submit">
-                        <?= $block->escapeHtml(__('Search')) ?>
-                    </button>
-                  </form>
-                  </div>
-                  </div>
-            <?php echo $this->getLayout()
-                 ->createBlock('Magento\Cms\Block\Block')
-                 ->setBlockId('footer_accessories')
-                 ->toHtml();
-                  ?>
-                </div>
-                </div>
-            </section>
-            <!-- finish rightwrap -->
-            
-            <!--  suppliers-wrap-->
-            <section class="suppliers-wrap">
-
-              <?php //echo $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Theme::html/shopbybrand.phtml")->toHtml();?>
-
-            </section>
-            <!-- suppliers-wrap -->
-            
-            <!--  paragraph-wrap -->
-            <section class="paragraph-wrap">
-                <div class="container">
-             <?php  echo $this->getLayout()
-                    ->createBlock('Magento\Cms\Block\Block')
-                    ->setBlockId('footer_paragraph')
-                    ->toHtml();
-                    $get1 = file_get_contents('https://www.kiyoh.com/v1/review/feed.xml?hash=mua00i6oi3mzwl4');
-              $arr1 = simplexml_load_string($get1);
-              $array1 = json_decode(json_encode($arr1), true);
-              $last12MonthAverageRating1=$array1['averageRating'];
-              $numberReviews1=$array1['numberReviews'];
-               ?>
-               <div class="col2">
-                <div class="kiyoh-block">
-                <div class="kiyoh-inner">
-                <figure><img src="<?php echo $this->getViewFileUrl('images/kiyuh.png'); ?>" alt="images"><span><?php echo $last12MonthAverageRating1; ?></span></figure>
-                <div class="text">
-                <h3>Kiyoh</h3>
-                <a class="star-ratings" href="https://www.kiyoh.com/reviews/1062836/4x4center.nl?lang=nl" target="_blank"> 
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star-half-alt"></i>
-                </a> 
-                  <a class="lnk" href="https://www.kiyoh.com/reviews/1062836/4x4center.nl?lang=nl" target="_blank"><?php echo $numberReviews1;  ?> beoordelingen</a> <a class="primarybtn" href="https://www.kiyoh.com/reviews/1062836/4x4center.nl?lang=nl" target="_blank">Beoordeel ons</a></div>
-                </div>
-                </div>
-                <div class="social-block">
-                <div class="title" id='socialtitle'>
-                <h3>Volg ons op social media</h3>
-                <p>Blijf geinspireerd naar onze 4x4 toepassingen.</p>
-                </div>
-                <ul>
-                <li class="fb">
-                  <a href=" https://www.facebook.com/4x4Center.nl/" target="_blank">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-              </li>
-                <li class="insta">
-                  <a href="https://www.instagram.com/4x4center.nl/" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                  </a>
-                </li>
-                <li class="ytube">
-                  <a href="https://www.youtube.com/channel/UCNrcaULeQeAkGbArxD9ibyw" target="_blank">
-                    <i class="fab fa-youtube"></i></a>
-                  </li>
-                <li class="linkedin">
-                  <a href="https://www.linkedin.com/company/4x4center" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                </li>
-                </ul>
-                </div>
-                </div>
-                </div>
-            <!-- paragraph-wrap -->
-        </section>
-  <!-- begin footer -->
-    <footer id="footer-wrap">
-      <div class="footer-block">
-      <?php echo $this->getLayout()
-            ->createBlock('Magento\Cms\Block\Block')
-            ->setBlockId('footer_top_content')
-              ->toHtml(); ?>
-        
-        <?php echo $this->getLayout()
-        ->createBlock('Magento\Cms\Block\Block')
-        ->setBlockId('footer_middle_content')
-        ->toHtml(); ?>
-      
-            <?php echo $this->getLayout()
-           ->createBlock('Magento\Cms\Block\Block')
-           ->setBlockId('footer_last_content')
-             ->toHtml(); ?> 
-      </div>
-    </footer>
-    <!-- finish footer -->
-    
-  </section>
-  <!-- finish page wrap -->
 </section>
-<script src="<?php echo $block->getViewFileUrl('js/custom.js');?>"></script> 
-<style type="text/css">
-  a.star-ratings:hover {
-    text-decoration: none;
-}
-</style>
-<script>
-require(['jquery'],
-  function($){
-     $('#groups').on('change', function(){
-        var val = $(this).val();
-        var sub = $('#sub_groups');
-        $('option', sub).filter(function(){
-            if (
-                 $(this).attr('data-group') === val 
-              || $(this).attr('data-group') === 'SHOW'
-            ) {
-              if ($(this).parent('span').length) {
-                $(this).unwrap();
-              }
-            } else {
-              if (!$(this).parent('span').length) {
-                $(this).wrap( "<span>" ).parent().hide();
-              }
-            }
-        });
-    });
-    $('#groups').trigger('change');
-});
-</script>
+    <!-- end content -->
+    
+<!-- start footer -->
+    <footer id="footer-wrap">
+
+            <!-- start copy block -->
+            <div class="footerlinks-block">
+                <div class="container">
+          <div class="row">
+            <div class="col-3">
+              <a href="#" class="footerlogo"><img src="images/logo.png" alt=""/></a>
+              <ul class="social-links">
+                <li><a href="#"><i class="social-icon insta-icon"></i></a></li>
+                <li><a href="#"><i class="social-icon facebook-icon"></i></a></li>
+              </ul>
+            </div>
+            <div class="col-3">
+              <h4>Klantenservice</h4>
+              <ul class="ulinks">
+                <li><a href="#">Onze garanties</a></li>
+                <li><a href="#">Retourbeleid</a></li>
+                <li><a href="#">Bezorgkosten</a></li>
+                <li><a href="#">Levertijden</a></li>
+                <li><a href="#">Betalen</a></li>
+                <li><a href="#">Kleuren</a></li>
+              </ul>
+            </div>
+            <div class="col-3">
+              <h4>Showroom</h4>
+              <address>
+                Arkansasdreef 34d <br>
+                3565 AS Utrecht
+              </address>
+              <table>
+                <tr><td>Ma - Do</td><td>Gesloten</td></tr>
+                <tr><td>Ma - Do</td><td>10:00 - 17:00</td></tr>
+              </table>
+            </div>
+            <div class="col-3">
+              <h4>Contact</h4>
+              <address>
+                Masterbed BV<br>
+                Batenburgweg 7<br>
+                3769 CB  Soesterberg-Noord<br><br>
+
+                <a href="#">(0343) 414 128</a><br>
+                <a href="#">info@misterbed.nl</a><br><br>
+
+                BTW NL8131.12.278B01<br>
+                KvK 30.19.46.00
+              </address>
+            </div>
+          </div>
+        </div>
+            </div>
+            <!-- end copy block -->
+      
+       <!-- start copy block -->
+            <div class="copyright-block">
+                <div class="container">
+          <div class="row space-between">
+            <div class="column-left">
+              <ul class="paymentlist">
+                <li><img src="images/visa.png" alt=""/></li>
+                <li><img src="images/mastercard.png" alt=""/></li>
+                <li><img src="images/ideal.png" alt=""/></li>
+                <li><img src="images/paypal.png" alt=""/></li>
+              </ul>
+            </div>
+            <div class="column-right">
+              <ul class="copyrightlist">
+                <li><span>© 2020 Misterbed</span></li>
+                <li><a href="#">Privacy beleid</a></li>
+                <li><a href="#">Gebruikersvoorwaarden</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Klantenreacties</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+            </div>
+            <!-- end copy block -->
+
+    </footer>
+    <!-- end footer -->

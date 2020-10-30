@@ -24,9 +24,9 @@
         <css  src="css/owl.carousel.min.css"/>
         <css  src="fonts/fonts.css"/>
         <css  src="css/slick.css"/>
-        <css  src="css/all.min.css"/>
-        <css  src="css/layout.css"/>
+        <css  src="css/all.min.css"/>       
         <css  src="css/bootstrap.min.css"/>
         <css  src="css/custom.css"/>
+         <css  src="css/layout.css"/>
     </head>
 </page>
