@@ -80,6 +80,20 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
                 'disabled' => $isElementDisabled
             ]
         );
+
+        $fieldset->addField(
+            'identifier',
+            'text',
+            [
+                'name' => 'post[identifier]',
+                'label' => __('URL Key'),
+                'title' => __('URL Key'),
+                'required' => true,
+                'class' => 'validate-identifier',
+                'note' => __('Relative to Web Site Base URL(Don\'t use "blog" in URL Key)'),
+                'disabled' => $isElementDisabled
+            ]
+        ); 
 		
 		$fieldset->addField(
 			'thumbnailimage',
@@ -97,13 +111,12 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
             'btnName',
             'text',
             [
-                'name' => 'btnName',
+                'name' => 'post[btnName]',
                 'label' => __('Button Name'),
                 'title' => __('Button Name'),
-                'required' => false,
-                'class' => 'validate-identifier',
+                'required' => false,                
                 'note' => __('Relative to Web Site Base URL(Don\'t use "blog" in URL Key)'),
-                'disabled' => $isElementDisabled
+                
             ]
         );
 
@@ -111,13 +124,12 @@ class Main extends \Magento\Backend\Block\Widget\Form\Generic implements \Magent
             'btnLink',
             'text',
             [
-                'name' => 'btnLink',
+                'name' => 'post[btnLink]',
                 'label' => __('Button Link'),
                 'title' => __('Button Link'),
-                'required' => false,
-                'class' => 'validate-identifier',
+                'required' => false,                
                 'note' => __('Relative to Web Site Base URL(Don\'t use "blog" in URL Key)'),
-                'disabled' => $isElementDisabled
+              
             ]
         );
 

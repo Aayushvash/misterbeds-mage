@@ -8,49 +8,14 @@
             <div class="footerlinks-block">
                 <div class="container">
           <div class="row">
-            <div class="col-3">
-              <a href="#" class="footerlogo"><img src="images/logo.png" alt=""/></a>
-              <ul class="social-links">
-                <li><a href="#"><i class="social-icon insta-icon"></i></a></li>
-                <li><a href="#"><i class="social-icon facebook-icon"></i></a></li>
-              </ul>
-            </div>
-            <div class="col-3">
-              <h4>Klantenservice</h4>
-              <ul class="ulinks">
-                <li><a href="#">Onze garanties</a></li>
-                <li><a href="#">Retourbeleid</a></li>
-                <li><a href="#">Bezorgkosten</a></li>
-                <li><a href="#">Levertijden</a></li>
-                <li><a href="#">Betalen</a></li>
-                <li><a href="#">Kleuren</a></li>
-              </ul>
-            </div>
-            <div class="col-3">
-              <h4>Showroom</h4>
-              <address>
-                Arkansasdreef 34d <br>
-                3565 AS Utrecht
-              </address>
-              <table>
-                <tr><td>Ma - Do</td><td>Gesloten</td></tr>
-                <tr><td>Ma - Do</td><td>10:00 - 17:00</td></tr>
-              </table>
-            </div>
-            <div class="col-3">
-              <h4>Contact</h4>
-              <address>
-                Masterbed BV<br>
-                Batenburgweg 7<br>
-                3769 CB  Soesterberg-Noord<br><br>
-
-                <a href="#">(0343) 414 128</a><br>
-                <a href="#">info@misterbed.nl</a><br><br>
-
-                BTW NL8131.12.278B01<br>
-                KvK 30.19.46.00
-              </address>
-            </div>
+            <?php echo $this->getLayout()
+      ->createBlock('Magento\Cms\Block\Block')
+      ->setBlockId('footer_social_block')
+      ->toHtml(); ?>
+         <?php echo $this->getLayout()
+      ->createBlock('Magento\Cms\Block\Block')
+      ->setBlockId('footer_menu_block')
+      ->toHtml(); ?>
           </div>
         </div>
             </div>

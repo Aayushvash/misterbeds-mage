@@ -15,33 +15,21 @@
 			</div>
 		</section>
 		<!-- main-block -->
-		<aside class="main-block outlet-block">
+		<?php //echo $block->getLayout()->createBlock('Rokanthemes\Blog\Block\Sidebar\Recent')->setTemplate('Rokanthemes_Blog::sidebar/cathome.phtml')->toHtml();?>
+		<!-- main-block -->
+			<aside class="main-block outlet-block">
 				<div class="container">
 					<div class="row row-less10">
-						<div class="col-3">
-							<div class="outlet-panel" style="background: url(./images/img1.png)no-repeat center/cover;">
-								<a href="#" class="primarybtn">Peuterbed</a>
-							</div>
-						</div>
-						<div class="col-3">
-							<div class="outlet-panel" style="background: url(./images/img2.png)no-repeat center/cover;">
-								<a href="#" class="primarybtn">Stapelbed</a>
-							</div>
-						</div>
-						<div class="col-3">
-							<div class="outlet-panel" style="background: url(./images/img3.png)no-repeat center/cover;">
-								<a href="#" class="primarybtn">Tienerkamer</a>
-							</div>
-						</div>
-						<div class="col-3">
-							<div class="outletblank-panel">
-								<a href="#" class="btn">Outlet <i></i></a>
-							</div>
-						</div>
+						<?php
+							echo $this->getLayout()
+							->createBlock('Magento\Cms\Block\Block')
+							->setBlockId('home_custom_repeater')
+							->toHtml();
+						?>
 					</div>
 				</div>
 			</aside>
-
+			<!-- main-block -->			 
 			<aside class="main-block popular-block">
 				<div class="container">
 					<div class="row row-less20">
@@ -120,18 +108,13 @@
 			<aside class="main-block view-block">
 				<div class="container">
 					<div class="inner">
-						<div class="row">
-							<div class="column-left">
-								<div class="left-caption">
-									<h2>Alles voor een ontspannen zondagochtend</h2>
-									<a href="#" class="btn">Bekijk <i></i></a>
-								</div>
-							</div>	
-							<div class="column-right">
-								<figure style="background: url(./images/m-img-1.png)no-repeat center/cover;">
-									<span class="viewpricetag">Dekbed Bee Bee <em>€38,-</em></span>
-								</figure>
-							</div>
+						<div class="row">							
+							<?php
+							echo $this->getLayout()
+							->createBlock('Magento\Cms\Block\Block')
+							->setBlockId('home_custom_featured')
+							->toHtml();
+						?>
 						</div>
 					</div>
 				</div>
@@ -140,24 +123,12 @@
 			<aside class="main-block services-block">
 				<div class="container">
 					<ul class="row">
-						<li class="col-4">
-							<div class="services-panel">
-								<i class="icons truck-icon"></i>
-								<strong>Gratis thuisbezorgd</strong>
-							</div>
-						</li>
-						<li class="col-4">
-							<div class="services-panel">
-								<i class="icons security-icon"></i>
-								<strong>Ruim 15 jaar online</strong>
-							</div>
-						</li>
-						<li class="col-4">
-							<div class="services-panel">
-								<i class="icons eurohand-icon"></i>
-								<strong>Altijd de beste prijs</strong>
-							</div>
-						</li>
+						<?php
+							echo $this->getLayout()
+							->createBlock('Magento\Cms\Block\Block')
+							->setBlockId('home_service_block')
+							->toHtml();
+						?>
 					</ul>
 				</div>
 			</aside>

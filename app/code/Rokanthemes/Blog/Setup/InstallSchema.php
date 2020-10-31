@@ -51,6 +51,18 @@ class InstallSchema implements InstallSchemaInterface
 			['nullable' => true],
 			'Thumbnail Image'
 		)->addColumn(
+            'btnName',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            ['nullable' => true],
+            'Button Name'
+        )->addColumn(
+            'btnLink',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            ['nullable' => true],
+            'Button Link'
+        )->addColumn(
             'meta_keywords',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             '64k',
@@ -116,10 +128,10 @@ class InstallSchema implements InstallSchemaInterface
         )->addIndex(
             $setup->getIdxName(
                 $installer->getTable('rokanthemes_blog_post'),
-                ['title', 'meta_keywords', 'meta_description', 'identifier', 'content'],
+                ['title', 'meta_keywords', 'meta_description', 'identifier', 'content', 'btnName', 'btnLink'],
                 AdapterInterface::INDEX_TYPE_FULLTEXT
             ),
-            ['title', 'meta_keywords', 'meta_description', 'identifier', 'content'],
+            ['title', 'meta_keywords', 'meta_description', 'identifier', 'content', 'btnName', 'btnLink'],
             ['type' => AdapterInterface::INDEX_TYPE_FULLTEXT]
         )->setComment(
             'Rokanthemes Blog Post Table'

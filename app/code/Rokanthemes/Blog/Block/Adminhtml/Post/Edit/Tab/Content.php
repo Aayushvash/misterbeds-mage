@@ -81,7 +81,7 @@ class Content extends \Magento\Backend\Block\Widget\Form\Generic implements
                 'name' => 'post[short_content]',
                 'label' => __('Short Content'),
                 'title' => __('Short Content'),
-                'required' => true,
+                'required' => false,
                 'disabled' => $isElementDisabled
             ]
         );
@@ -92,7 +92,7 @@ class Content extends \Magento\Backend\Block\Widget\Form\Generic implements
             [
                 'name' => 'post[content]',
                 'style' => 'height:36em;',
-                'required' => true,
+                'required' => false,
                 'disabled' => $isElementDisabled,
                 'config' => $wysiwygConfig
             ]

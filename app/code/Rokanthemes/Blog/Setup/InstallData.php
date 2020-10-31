@@ -41,7 +41,7 @@ class InstallData implements InstallDataInterface
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
-    {
+    {   
         $data = [
             'title' => 'Hello world!',
             'meta_keywords' => 'magento 2 blog',
@@ -49,6 +49,8 @@ class InstallData implements InstallDataInterface
             'identifier' => 'hello-world',
             'content_heading' => 'Hello world!',
             'content' => 'Welcome to <a target="_blank" href="http://www.rokanthemes.com/" title="rokanthemes - solutions for Magento 2">rokanthemes</a> blog extension for Magento&reg; 2. This is your first post. Edit or delete it, then start blogging!',
+             'btnName' => 'test',
+             'btnLink' => 'test',
             'stores' => [0]
         ];
 

@@ -317,7 +317,9 @@ img {
 	vertical-align: middle;
 	background: url(../images/right-arrow.svg)no-repeat center;
 }
-#banner-wrap .btn:before {
+#banner-wrap .btn:before,
+.btn.btn-large:before {
+	content: "";
 	position: absolute;
 	top:50%;
 	right:15px;
@@ -714,6 +716,19 @@ img {
 .outlet-block {
     padding-top: 105px;
     padding-bottom: 50px;
+}
+.outletblank-panel a.btn:before {
+	content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    content: "";
+    width: 102px;
+    height: 14px;
+    vertical-align: middle;
+    background: url(../images/right-arrow.svg)no-repeat center;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
 }
 .outlet-panel {
 	position: relative;

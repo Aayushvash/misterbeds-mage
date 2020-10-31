@@ -1,0 +1,69 @@
+<?php
+
+use \Magento\Framework\Stdlib\StringUtils;
+
+/**
+ * Copyright © 2015 RokanThemes.com. All rights reserved.
+
+ * @author RokanThemes Team <contact@rokanthemes.com>
+ */
+?>
+<?php
+/**
+ * Blog sidebar recent posts template
+ *
+ * @var $block \Rokanthemes\Blog\Block\Sidebar\Recent
+ */
+?>
+
+<?php
+
+	$stringFilter = new \Magento\Framework\Stdlib\StringUtils;
+	$enable = $this->getConfig('enable_frontend');
+	$auto = $this->getConfig('auto');
+	$speed = $this->getConfig('speed');
+	$default = $this->getConfig('default');
+	$desktop = $this->getConfig('desktop');
+	$desktop_small = $this->getConfig('desktop_small');
+	$tablet = $this->getConfig('tablet');
+	$mobile = $this->getConfig('mobile');
+	$pagination = $this->getConfig('pagination');
+	$show_next_back = $this->getConfig('show_next_back');
+	$show_navigation_control = $this->getConfig('show_navigation_control');
+	$description = $this->getConfig('blog_description');
+	$title = $this->getConfig('title');
+	if($show_next_back)
+		$show_next_back = 'true';
+	else
+		$show_next_back = 'false';
+	$show_navigation_control = $this->getConfig('show_navigation_control');
+	if($show_navigation_control)
+		$show_navigation_control = 'true';
+	else
+		$show_navigation_control = 'false';
+	$_postCollection = $block->getPostCollection();
+?>
+<?php if ($_postCollection->count() && $enable) { ?>
+<aside class="main-block outlet-block">
+		
+		<div class="container">
+			<div class="row row-less10">	
+				
+					<?php foreach ($_postCollection as $_post) { 
+						
+					 ?>
+						<div class="col-3">
+							<div class="outlet-panel" style="background: url(<?php echo $this->getMediaFolder().$_post->getThumbnailimage() ?>)no-repeat center/cover;">
+								<a href="#" class="primarybtn"><?php echo $block->escapeHtml($_post->getTitle()) ?></a>
+							</div>
+							
+						</div>
+					<?php } ?>
+				
+				
+			</div>
+		</div>
+</aside>
+
+
+<?php } ?>

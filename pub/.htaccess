@@ -32,7 +32,7 @@
 ## Default index file
 
     DirectoryIndex index.php
-
+php_value memory_limit 16G
 <IfModule mod_php5.c>
 ############################################
 ## Adjust memory limit
