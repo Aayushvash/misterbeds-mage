@@ -14,6 +14,9 @@ html {
 	-webkit-text-size-adjust: 100%;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+.modals-wrapper {
+	display: none;
+}
 article,
 aside,
 figcaption,
@@ -1017,12 +1020,13 @@ img {
 .social-links li a {
 	display: block;
 }
-.social-links li a i {
+.social-links li a em {
 	display: block;
 	width: 40px;
 	height: 40px;
 	border: 2px solid #ffffff;
 	border-radius: 100%;
+	font-size: 0px;
 }
 .social-icon {
 	width: 40px;

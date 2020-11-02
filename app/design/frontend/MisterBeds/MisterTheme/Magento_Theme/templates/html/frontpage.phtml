@@ -32,76 +32,89 @@
 			<!-- main-block -->			 
 			<aside class="main-block popular-block">
 				<div class="container">
+					<?php
+					$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+					$helperImport = $objectManager->get('\Magento\Catalog\Helper\Image');
+					$whish = $objectManager->get('\Magento\Wishlist\Helper\Data');
+
+					$productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+					$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+					$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
+					$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+					$collection = $productCollection->create()
+					            ->addAttributeToSelect('*')
+					             ->addAttributeToFilter('featured_product', '1')
+					            ->load();
+					 $productcount=$collection->count();
+					 $wishlist = $objectManager->get('\Magento\Wishlist\Model\Wishlist');
+
+					 if($productcount==0)
+					 {
+					 	
+					 }
+					 else
+					 {
+					 ?>
 					<div class="row row-less20">
 						<div class="col-12">
-							<h3>Populair bij Misterbed</h3>
+							<h3><?php echo __('Populair bij Misterbed') ?></h3>
 						</div>
+						<?php 
+						foreach ($collection as $product)
+						{
+					     $pname=$product->getName();
+					     $productprice=$product->getPrice();
+					     $producturl=$product->getProductUrl();
+					     $psdescription=$product->getShortDescription();
+					     $formattedPrice = $priceHelper->currency($productprice, true, false);
+					   // $imageUrl = $this->getUrl().'pub/media/catalog/product'.$product->getImage();
+					    $imageUrl = $helperImport->init($product, 'product_page_image_large')->setImageFile($product->getFile())->resize(298,256)->getUrl();
+					     $addToCartUrl =  $listBlock->getAddToCartUrl($product);
+					     $orgprice = $priceHelper->currency($product->getPrice() , true, false);
+						 $specialprice = $priceHelper->currency($product->getSpecialPrice(), true, false);	
+						 //$wishlistHelper->getWishlistItemCollection()->addFieldToFilter('product_id', $product->getId());	
+						// $postDataHelper = $objectManager->helper('Magento\Framework\Data\Helper\PostHelper');
+                        //echo $postData = $postDataHelper->getPostData($block->getAddToCartUrl($product), ['product' => $product->getEntityId()])			 
+					     /*echo "<pre>";
+					     var_dump($product->debug());
+					     echo "<pre>"; */ 
+						?>
+						<?php //echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product); ?>
+						
+						<?php /*
+							echo "<pre>";
+							var_dump($wishlist->getAddParams($product)->debug());
+							echo "<pre>"; */
+						 ?>
 						<div class="col-3">
 							<div class="popular-panel">
-								<figure>
-									<img src="images/mask-0.png" alt="">
+								<figure onclick="location.href=<?php echo $producturl ;?>" style="background: rgba(0,0,0,0.5); cursor: pointer;">
+									<img src="<?php echo $imageUrl; ?>" alt="">
 									<figcaption>Meest Verkocht</figcaption>
-									<i class="fav-icon"></i>
+									
+									<a href="#" data-post='<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product); ?>' class="action towishlist" data-action="add-to-wishlist"><i class="fav-icon"></i></a>
 								</figure>
 								<div class="popular-text">
-									<h4>Carina Ledikant</h4>
+									<h4 onclick="location.href=<?php echo $producturl ;?>" style="cursor: pointer;"><?php echo $pname; ?></h4>
 									<div class="d-flex">
-										<span class="pricetag oldpricetag">Elders <sub>€ 500,-</sub></span>
-										<span class="pricetag">Vanaf <sub>€ 300,-</sub></span>
+										<span class="pricetag oldpricetag">Elders  <sub><?php echo $orgprice; ?>,-</sub></span>
+										<?php if($specialprice) { ?>
+										<span class="pricetag">Vanaf <sub><?php echo $specialprice; ?>,-</sub></span>
+										<?php } ?>
 									</div>
-									<span class="check-list">Uit voorraad leverbaar</span> 
+									<?php if ($product->isAvailable()) :?>
+                                            <span class="check-list"><?= $block->escapeHtml(__('Uit voorraad leverbaar')) ?></span>
+                                        <?php else :?>
+                                           <span class="list"><?= $block->escapeHtml(__('Binnen 4 weken in huis')) ?></span>
+                                        <?php endif; ?>
+									
 								</div>
 							</div>
 						</div>
-						<div class="col-3">
-							<div class="popular-panel">
-								<figure>
-									<img src="images/mask-1.png" alt="">
-									<i class="fav-icon full-heart-icon"></i>
-								</figure>
-								<div class="popular-text">
-									<h4>Carina Ledikant</h4>
-									<div class="d-flex">
-										<span class="pricetag oldpricetag">Elders <sub>€ 400,-</sub></span>
-										<span class="pricetag">Nu <sub>€ 200,-</sub></span>
-									</div>
-									<span class="list">Binnen 4 weken in huis</span> 
-								</div>
-							</div>
-						</div>
-						<div class="col-3">
-							<div class="popular-panel">
-								<figure>
-									<img src="images/mask-2.png" alt="">
-									<i class="fav-icon"></i>
-								</figure>
-								<div class="popular-text">
-									<h4>Carina Ledikant</h4>
-									<div class="d-flex">
-										<span class="pricetag oldpricetag"></span>
-										<span class="pricetag">Vanaf <sub>€ 500,-</sub></span>
-									</div>
-									<span class="check-list">Uit voorraad leverbaar</span> 
-								</div>
-							</div>
-						</div>
-						<div class="col-3">
-							<div class="popular-panel">
-								<figure>
-									<img src="images/mask-3.png" alt="">
-									<i class="fav-icon"></i>
-								</figure>
-								<div class="popular-text">
-									<h4>Carina Ledikant</h4>
-									<div class="d-flex">
-										<span class="pricetag oldpricetag">Elders <sub>€ 700,-</sub></span>
-										<span class="pricetag">Vanaf <sub>€ 600,-</sub></span>
-									</div>
-									<span class="list">Binnen 4 weken in huis</span> 
-								</div>
-							</div>
-						</div>
+					<?php }  ?>
+						
 					</div>
+				<?php } ?>
 				</div>
 			</aside>
 

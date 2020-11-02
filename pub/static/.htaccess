@@ -69,7 +69,7 @@ AddType application/x-gzip gz gzip
 AddType application/x-bzip2 bz2
 AddType text/csv csv
 AddType application/xml xml
-php_value memory_limit 16G
+
 <IfModule mod_headers.c>
 
     <FilesMatch .*\.(ico|jpg|jpeg|png|gif|svg|js|css|swf|eot|ttf|otf|woff|woff2|html|json)$>
@@ -87,7 +87,7 @@ php_value memory_limit 16G
 ############################################
 ## Add default Expires header
 ## http://developer.yahoo.com/performance/rules.html#expires
-
+    php_value memory_limit 16G
     ExpiresActive On
 
     # Data

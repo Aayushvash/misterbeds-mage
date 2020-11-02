@@ -25,23 +25,10 @@
             <div class="copyright-block">
                 <div class="container">
           <div class="row space-between">
-            <div class="column-left">
-              <ul class="paymentlist">
-                <li><img src="images/visa.png" alt=""/></li>
-                <li><img src="images/mastercard.png" alt=""/></li>
-                <li><img src="images/ideal.png" alt=""/></li>
-                <li><img src="images/paypal.png" alt=""/></li>
-              </ul>
-            </div>
-            <div class="column-right">
-              <ul class="copyrightlist">
-                <li><span>© 2020 Misterbed</span></li>
-                <li><a href="#">Privacy beleid</a></li>
-                <li><a href="#">Gebruikersvoorwaarden</a></li>
-                <li><a href="#">Cookies</a></li>
-                <li><a href="#">Klantenreacties</a></li>
-              </ul>
-            </div>
+             <?php echo $this->getLayout()
+      ->createBlock('Magento\Cms\Block\Block')
+      ->setBlockId('footer_copyright_menu')
+      ->toHtml(); ?>
           </div>
         </div>
             </div>
