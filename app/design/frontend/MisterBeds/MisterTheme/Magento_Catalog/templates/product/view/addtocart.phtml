@@ -1,0 +1,98 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()) :?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+             <button type="button" class="quantity-left-minus"  data-type="minus" data-field="">-
+             </button>
+            <div class="control ctr_t">
+                <input type="number"
+                       name="qty"
+                       id="qty"
+                       min="0"
+                       value="<?= $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                       class="input-text qty"
+                       data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                       />
+            </div>
+             <button type="button" class="quantity-right-plus" data-type="plus" data-field="">
+              +</button>
+        </div>
+        <?php endif; ?>
+        <div class="actions">
+            <button type="submit"
+                    title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button" disabled>
+                <span><?= $block->escapeHtml($buttonTitle) ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<style type="text/css">
+  button{
+        background: #ffffff!important;
+        border: 1px solid #ffffff!important;
+        color: #333333!important;
+        font-weight: 700!important;
+        line-height: 23px!important;
+        padding: 0px 0px!important; 
+        }
+</style>
+<script type="text/javascript">
+      require(["jquery"], function($){
+      $(document).ready(function(){
+        var quantitiy=1;
+         $('.quantity-right-plus').click(function(e){
+              
+              // Stop acting like a button
+              e.preventDefault();
+              // Get the field name
+              var quantity = parseInt($('#qty').val());
+              
+              // If is not undefined
+                  
+                  $('#qty').val(quantity + 1);
+
+                
+                  // Increment
+              
+          });
+
+           $('.quantity-left-minus').click(function(e){
+              // Stop acting like a button
+              e.preventDefault();
+              // Get the field name
+              var quantity = parseInt($('#qty').val());
+              
+              // If is not undefined
+            
+                  // Increment
+                  if(quantity>1){
+                  $('#qty').val(quantity - 1);
+                  }
+          });
+       });
+      });
+    </script>

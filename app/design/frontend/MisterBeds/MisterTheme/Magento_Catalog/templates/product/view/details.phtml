@@ -1,0 +1,67 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Catalog\Block\Product\View\Details $block */
+?>
+<?php if ($detailedInfoGroup = $block->getGroupSortedChildNames('detailed_info', 'getChildHtml')) :?>
+    <div class="product info detailed">
+    <div class="mega-product-text">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="product data items row" data-mage-init='{"tabs":{"openedState":"active"}}'>
+            <?php foreach ($detailedInfoGroup as $name) :?>
+                <?php
+                $html = $layout->renderElement($name);
+                if (!trim($html)) {
+                    continue;
+                }
+                $alias = $layout->getElementAlias($name);
+                $label = $block->getChildData($alias, 'title');
+                ?>
+                <?php if($name=='product.info.description' || $name=='specification.tab' || $name=='installatie.tab'){ ?>
+                <div class="col3">
+                <div class="p-panel">
+                <div class="data item title active"
+                     data-role="collapsible" id="tab-label-<?= $block->escapeHtmlAttr($alias) ?>">
+                        <h3><?= /* @noEscape */ $label ?></h3>
+                </div>
+                <div class="ptag" id="<?= $block->escapeHtmlAttr($alias) ?>">
+                    <?= /* @noEscape */ $html ?>
+                </div> 
+                </div>   
+               </div> 
+
+            <?php } endforeach;?>
+        </div>
+       </div> 
+    </div>
+<?php endif; ?>
+    <!-- review-wrap -->
+            <section class="review-wrap">
+                <div class="container">
+                <div class="product data items row" data-mage-init='{"tabs":{"openedState":"active"}}'>
+                 <?php foreach ($detailedInfoGroup as $name) :?>
+                <?php if($name=='reviews.tab'){ ?>
+                <div class="col3">
+                <div class="p-panel">
+                <div class="data item title active"
+                     data-role="collapsible" id="tab-label-<?= $block->escapeHtmlAttr($alias) ?>">
+                </div>
+                <div id="<?= $block->escapeHtmlAttr($alias) ?>">
+                    <?= /* @noEscape */ $html ?>
+                </div> 
+                </div>   
+               </div> 
+                 <?php } endforeach;?>
+                </div>
+            </div>
+            </section>
+            <!-- review-wrap -->
+<style type="text/css">
+    .product {
+     padding: 0px 0px!important; 
+     border-bottom: none!important; 
+}
+</style>

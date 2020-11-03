@@ -44,6 +44,7 @@
 					$collection = $productCollection->create()
 					            ->addAttributeToSelect('*')
 					             ->addAttributeToFilter('featured_product', '1')
+					             ->addAttributeToSort('price', 'DESC')
 					            ->load();
 					 $productcount=$collection->count();
 					 $wishlist = $objectManager->get('\Magento\Wishlist\Model\Wishlist');
@@ -72,6 +73,8 @@
 					     $addToCartUrl =  $listBlock->getAddToCartUrl($product);
 					     $orgprice = $priceHelper->currency($product->getPrice() , true, false);
 						 $specialprice = $priceHelper->currency($product->getSpecialPrice(), true, false);	
+						 $is_most = $product->getAttributeText('most_popular_procuct'); 
+						 $is_most_text = $product->getData('most_popular_ribbon_text');
 						 //$wishlistHelper->getWishlistItemCollection()->addFieldToFilter('product_id', $product->getId());	
 						// $postDataHelper = $objectManager->helper('Magento\Framework\Data\Helper\PostHelper');
                         //echo $postData = $postDataHelper->getPostData($block->getAddToCartUrl($product), ['product' => $product->getEntityId()])			 
@@ -90,18 +93,27 @@
 							<div class="popular-panel">
 								<figure onclick="location.href=<?php echo $producturl ;?>" style="background: rgba(0,0,0,0.5); cursor: pointer;">
 									<img src="<?php echo $imageUrl; ?>" alt="">
-									<figcaption>Meest Verkocht</figcaption>
-									
+									<?php if($is_most == 'Yes' && $is_most_text) { ?>
+										<figcaption><?php echo $is_most_text; ?></figcaption>
+									<?php } ?>									
 									<a href="#" data-post='<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($product); ?>' class="action towishlist" data-action="add-to-wishlist"><i class="fav-icon"></i></a>
 								</figure>
 								<div class="popular-text">
 									<h4 onclick="location.href=<?php echo $producturl ;?>" style="cursor: pointer;"><?php echo $pname; ?></h4>
-									<div class="d-flex">
-										<span class="pricetag oldpricetag">Elders  <sub><?php echo $orgprice; ?>,-</sub></span>
-										<?php if($specialprice) { ?>
-										<span class="pricetag">Vanaf <sub><?php echo $specialprice; ?>,-</sub></span>
-										<?php } ?>
-									</div>
+									 <?php if($product->getSpecialPrice() > 0) { ?>
+                                    <div class="d-flex">
+                                        <span class="pricetag oldpricetag">Elders  <sub><?php echo $orgprice; ?>,-</sub></span>
+                                        <?php if($specialprice) { ?>
+                                        <span class="pricetag">Vanaf <sub><?php echo $specialprice; ?>,-</sub></span>
+                                        <?php } ?>
+                                    </div>
+                                   <?php } else { ?>
+                                    <div class="d-flex">                                       
+                                        
+                                        <span class="pricetag">Vanaf <sub><?php echo $orgprice; ?>,-</sub></span>
+                                        
+                                    </div>
+                                   <?php } ?>
 									<?php if ($product->isAvailable()) :?>
                                             <span class="check-list"><?= $block->escapeHtml(__('Uit voorraad leverbaar')) ?></span>
                                         <?php else :?>

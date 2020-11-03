@@ -1,0 +1,526 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+
+//die("aayush");
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+?>
+<?php if (!$_productCollection->count()) :?>
+    <div class="message info empty"><div><?= $block->escapeHtml(__('We can\'t find products matching the selection.')) ?></div></div>
+<?php else :?>
+    <?php 
+    $result1=$this->getRequest()->getFullActionName();
+    if($result1== 'catalog_category_view' && !isset($_GET['cat'])): ?>
+    <?php 
+    $objectManager11 = \Magento\Framework\App\ObjectManager::getInstance();
+    $category11 = $objectManager11->get('Magento\Framework\Registry')->registry('current_category');
+    $subcats = $category11->getChildrenCategories();
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+    if($category11){
+       $imgyesno= $category11->getCustomListYn();
+        }
+    if($imgyesno=='1'): ?>
+    <div class="row row-cat">
+    <?php
+    foreach ($subcats as $subcat) {
+        if ($subcat->getIsActive()) {
+            $_category = $objectManager11->create('Magento\Catalog\Model\Category')->load($subcat->getId());
+            $_outputhelper = $this->helper('Magento\Catalog\Helper\Output');
+            $subcaturl = $subcat->getUrl();
+            $_imgHtml = '';
+            if ($_imgUrl = $_category->getImageUrl()) {
+                $_imgHtml = '<img style="width: 100%;" src="' . $_imgUrl . '" />';
+                $_imgHtml = $_outputhelper->categoryAttribute($_category, $_imgHtml, 'image');
+                /* @escapeNotVerified */
+                echo '<div class="col1">
+                    <div class="categories-panel">
+                        <figure><a href="' . $subcaturl . '
+                            " class="block-promo" title="' . $subcat->getName() . '">
+                            <img src="' . $_imgUrl . '" /></a></figure>
+                            <h4><a href="' . $subcaturl . '
+                            " class="block-promo" title="' . $subcat->getName() . '">' . $subcat->getName() . '
+                            </a>
+                            </h4>
+                    </div>
+                    </div>';
+                
+
+            }
+        }
+    } ?>
+    <?php
+     if($category11->getName()=='Exterieur')
+     {
+     ?>
+     <style type="text/css">
+         .listtitle3{display: none;}
+         .list3{display: none;}
+         .listtitle4{display: none;}
+         .list4{display: none;}
+         .listtitle5{display: none;}
+         .list5{display: none;}
+         .listtitle7{display: none;}
+         .list7{display: none;}
+         .listtitle8{display: none;}
+         .list8{display: none;}
+         .listtitle9{display: none;}
+         .list9{display: none;}
+         .listtitle13{display: none;}
+         .list13{display: none;}
+         .listtitle20{display: none;}
+         .list20{display: none;}
+         .listtitle21{display: none;}
+         .list21{display: none;}
+         .listtitle22{display: none;}
+         .list22{display: none;}
+         .listtitle23{display: none;}
+         .list23{display: none;}
+         .listtitle24{display: none;}
+         .list24{display: none;}
+         .listtitle25{display: none;}
+         .list25{display: none;}
+         .listtitle29{display: none;}
+         .list29{display: none;}
+         .listtitle30{display: none;}
+         .list30{display: none;}
+         .listtitle38{display: none;}
+         .list38{display: none;}
+         .listtitle47{display: none;}
+         .list47{display: none;}
+         .listtitle48{display: none;}
+         .list48{display: none;}
+         .listtitle51{display: none;}
+         .list51{display: none;}
+     </style>   
+     <?php }
+      ?>
+      <?php
+     if($category11->getName()=='Interieur')
+     {
+     ?>
+     <style type="text/css">
+         .listtitle3{display: none;}
+         .list3{display: none;}
+         .listtitle4{display: none;}
+         .list4{display: none;}
+         .listtitle5{display: none;}
+         .list5{display: none;}
+         .listtitle7{display: none;}
+         .list7{display: none;}
+         .listtitle8{display: none;}
+         .list8{display: none;}
+         .listtitle9{display: none;}
+         .list9{display: none;}
+         .listtitle13{display: none;}
+         .list13{display: none;}
+         .listtitle17{display: none;}
+         .list17{display: none;}
+         .listtitle20{display: none;}
+         .list20{display: none;}
+         .listtitle21{display: none;}
+         .list21{display: none;}
+         .listtitle22{display: none;}
+         .list22{display: none;}
+         .listtitle23{display: none;}
+         .list23{display: none;}
+         .listtitle24{display: none;}
+         .list24{display: none;}
+         .listtitle25{display: none;}
+         .list25{display: none;}
+         .listtitle29{display: none;}
+         .list29{display: none;}
+         .listtitle30{display: none;}
+         .list30{display: none;}
+         .listtitle35{display: none;}
+         .list35{display: none;}
+         .listtitle38{display: none;}
+         .list38{display: none;}
+         .listtitle47{display: none;}
+         .list47{display: none;}
+         .listtitle48{display: none;}
+         .list48{display: none;}
+         .listtitle50{display: none;}
+         .list50{display: none;}
+         .listtitle51{display: none;}
+         .list51{display: none;}
+     </style>   
+     <?php }
+      ?>
+</div>
+    <?php 
+    else :   
+    ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() == 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = 'yes';
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+
+
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <!-- main-block -->
+    <aside class="main-block popular-block">
+      <div class="row row-less20 products wrapper <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <input type="hidden" value="<?php echo $_productCollection->count(); ?>" id="lnv">
+            <?php 
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $helperImport = $objectManager->get('\Magento\Catalog\Helper\Image');
+            $whish = $objectManager->get('\Magento\Wishlist\Helper\Data');
+            $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+
+            $i=1;
+            foreach ($_productCollection as $_product) :
+
+                        $pname=$_product->getName();
+                        
+                         $producturl=$_product->getProductUrl();
+                         $psdescription=$_product->getShortDescription();
+                         $is_most = $_product->getAttributeText('most_popular_procuct'); 
+                         $is_most_text = $_product->getData('most_popular_ribbon_text');
+                      
+                        //$imageUrl = $this->getUrl().'pub/media/catalog/product'.$_product->getImage();
+                        $imageUrl = $helperImport->init($_product, 'product_page_image_large')->setImageFile($_product->getFile())->resize(298,256)->getUrl();
+
+                         $orgprice = $priceHelper->currency($_product->getPrice() , true, false);
+                         $specialprice = $priceHelper->currency($_product->getSpecialPrice(), true, false);  
+
+                        ?>
+                        <?php
+$cc  = $_product->$whish->getWishlistItemCollection();
+count($cc);
+             foreach ($cc as $_wishlist_item) {
+                 print_r($_wishlist_item);
+                 echo "dddd";
+
+             }
+
+
+$objectManager111 = \Magento\Framework\App\ObjectManager::getInstance();
+$_in_wishlist = false;
+foreach ($this->helper('Magento\Wishlist\Helper\Data')->getWishlistItemCollection() as $_wishlist_item){
+    if($_product->getId() == $_wishlist_item->getProduct()->getId()){
+        $_in_wishlist = true;
+    }
+}
+$customerSession = $objectManager111->get('Magento\Customer\Model\Session');
+if($customerSession->isLoggedIn()) {
+    if($_in_wishlist){
+        ?>
+        <a href="#" data-post="#" data-action="already-in-wishlist"><span class="wish-list lineheight48"><img data-alt-src="<?php echo $block->getViewFileUrl('images/icons/body-shop-icons_wishlist_filled.svg'); ?>" width="38" src='<?php echo $this->getViewFileUrl('images/icons/icon-wishlist-black.svg'); ?>' alt="Wish list"></span></a><?php }else{?>
+    <a href="#" data-post='<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product) ?>' class="action towishlist" data-action="add-to-wishlist"><span class="wish-list lineheight48"><img data-alt-src="<?php echo $block->getViewFileUrl('images/icons/body-shop-icons_wishlist_filled.svg'); ?>" width="38" src='<?php echo $this->getViewFileUrl('images/icons/icon-wishlist.svg'); ?>' alt="Wish list"></span></a><?php } ?>
+    <?php
+}else{ ?>
+
+    <a href="#" data-post='<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product) ?>' class="action towishlist" data-action="add-to-wishlist"><span class="wish-list lineheight48"><img data-alt-src="<?php echo $block->getViewFileUrl('images/icons/body-shop-icons_wishlist_filled.svg'); ?>" width="38" src='<?php echo $this->getViewFileUrl('images/icons/icon-wishlist.svg'); ?>' alt="Wish list"></span></a>
+    <?php
+}
+?>
+            <div class="col-3">
+                <div class="popular-panel">
+                                
+                                <figure onclick="location.href=<?php echo $producturl ;?>" style="background: rgba(0,0,0,0.5); cursor: pointer;">
+                                <img src="<?php echo $imageUrl; ?>" alt="">
+                                <?php if($is_most == 'Yes' && $is_most_text) { ?>
+                                        <figcaption><?php echo $is_most_text; ?></figcaption>
+                                    <?php } ?>  
+                                
+                                <a href="#" data-post='<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product); ?>' class="action towishlist" data-action="add-to-wishlist"><i class="fav-icon"></i></a>
+                            </figure>
+                            <div class="popular-text">
+                                    <h4 onclick="location.href=<?php echo $producturl ;?>" style="cursor: pointer;"><?php echo $pname; ?></h4>
+                                    <?php if($_product->getSpecialPrice() > 0) { ?>
+                                    <div class="d-flex">
+                                        <span class="pricetag oldpricetag">Elders  <sub><?php echo $orgprice; ?>,-</sub></span>
+                                        <?php if($specialprice) { ?>
+                                        <span class="pricetag">Vanaf <sub><?php echo $specialprice; ?>,-</sub></span>
+                                        <?php } ?>
+                                    </div>
+                                   <?php } else { ?>
+                                    <div class="d-flex">                                       
+                                        
+                                        <span class="pricetag">Vanaf <sub><?php echo $orgprice; ?>,-</sub></span>
+                                        
+                                    </div>
+                                   <?php } ?>
+                                    <?php if ($_product->isAvailable()) :?>
+                                            <span class="check-list"><?= $block->escapeHtml(__('Uit voorraad leverbaar')) ?></span>
+                                        <?php else :?>
+                                           <span class="list"><?= $block->escapeHtml(__('Binnen 4 weken in huis')) ?></span>
+                                        <?php endif; ?>
+                                    
+                                </div>
+                                
+                                </div>
+                       </div>
+                       <?php if($i % 6 == 0): ?>
+                          <?php   $objectManager14 = \Magento\Framework\App\ObjectManager::getInstance();
+                            $category14 = $objectManager14->get('Magento\Framework\Registry')->registry('current_category');
+                         ?>
+                           <?php 
+                           if($category14):
+                           echo $category14->getCetegoryBannerImage();
+                            endif;
+                           ?>
+                          
+                    <?php endif; ?>
+            <?php $i++; endforeach; ?>
+      </div>
+    </aside>
+    <?= $block->getToolbarHtml() ?>
+    <?php if (!$block->isRedirectToCartEnabled()) :?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {
+                    "product_sku": "<?= $block->escapeJs($_product->getSku()) ?>"
+                }
+            }
+        }
+        </script>
+    <?php  endif; endif; ?>
+    <!-- serch result -->
+    <?php else : ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() == 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = 'yes';
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <div class="row products wrapper <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php 
+            foreach ($_productCollection as $_product) :
+
+                 $pname=$_product->getName();
+                        
+                         $producturl=$_product->getProductUrl();
+                         $psdescription=$_product->getShortDescription();
+                      
+                        $imageUrl = $this->getUrl().'pub/media/catalog/product'.$_product->getImage();
+                        
+
+                        ?>
+            <div class="col1 col134">
+                <div class="product-panel">
+                                <div class="top-panel">
+                                    <figure><a href="<?php echo $producturl ;?>"><img src="<?php echo $imageUrl;?>"></a></figure>
+                                    <h5><a href="<?php echo $producturl ;?>"><?php echo $pname; ?></a></h5>
+                                    <div class="ratings">
+                                        <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
+                                        <!-- <span> <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span><sub>21 reviews</sub>  --></div>
+                                    <div class="usp-block">
+                                        <?php echo  $psdescription; ?>
+                                    </div>
+                                    <div class="price">
+                                        <span> <?= /* @noEscape */ $block->getProductPrice($_product) ?></span>
+                                         <?php if ($_product->isAvailable()) :?>
+                                            <sub><?= $block->escapeHtml(__('In stock')) ?></sub>
+                                        <?php else :?>
+                                           <sub1><?= $block->escapeHtml(__('Out of stock')) ?></sub1>
+                                        <?php endif; ?>
+                                        <!-- <sub>Op voorraad</sub> -->
+                                    </div>
+                                </div>
+                                <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                <form data-role="tocart-form" data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
+                                action="<?= $block->escapeUrl($postParams['action']) ?>" method="post">
+                                <input type="hidden" name="product" value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+                                <input type="hidden" name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                                <?= $block->getBlockHtml('formkey') ?>
+                                <div class="bottom-panel">
+                                <div class="field qty">
+                                <div class="control qty-change">
+                                <ul class="number">
+                                <li class="minus">
+                                <p class="input-group-btn">
+                                <button class="decreaseqty3">-</button>
+                                </p>
+                                </li>
+                                <input type="hidden"
+                                name="qty"
+                                id="qty"
+                                value="1"
+                                title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                                class="input-text qty"
+                                data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                                />
+                                <li> 
+                                <span class="qty-label"> 1 </span>
+                                </li>
+                                <li class="plus">
+                                <p class="input-group-btn"> 
+                                <button class="increaseqty3">+</button>
+                                </p>
+                                </li>
+                                </ul>
+                                </div>
+                                </div>
+                                <div class="btn">
+                                <button type="submit"
+                                title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                class="action tocart primary">
+                                <span><i class="fas fa-shopping-cart"></i><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                                </button>
+                                </div> 
+                                </div> 
+                                </form>
+                                </div>
+                       </div>
+            <?php  endforeach; ?>
+    </div>
+    <?= $block->getToolbarHtml() ?>
+    <?php if (!$block->isRedirectToCartEnabled()) :?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {
+                    "product_sku": "<?= $block->escapeJs($_product->getSku()) ?>"
+                }
+            }
+        }
+        </script>
+    <?php  endif;  ?>    
+    <?php endif ?> 
+    <!-- close serch result -->  
+<?php endif; ?>
+
+<style type="text/css">
+    .modes {
+    display: none;
+}
+button{
+        background: #ffffff!important;
+        border: 1px solid #ffffff!important;
+        color: #333333!important;
+        font-weight: 700!important;
+        line-height: 23px!important;
+        padding: 0px 0px!important; 
+        }
+        .col134 {
+        flex: 0 0 26%;
+        margin-right: 2.5%;
+        margin-bottom: 3.5%;
+        }
+        .product {
+    padding: 0px 0px!important;
+    border-bottom: none!important;
+}
+.category-image {
+    display: none;
+}
+.price-including-tax+.price-excluding-tax:before
+  { display : none }
+.price-including-tax+.price-excluding-tax span
+  { display : none }
+  .product-panel .price sub1 {
+    color: red;
+    font-family: 'Raleway', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    position: relative;
+    padding-left: 15px;
+}
+.product-panel .price  sub1:after {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    content: "\f00c";
+    font-family: "Font Awesome 5 Pro";
+    font-style: normal;
+    font-weight: 700;
+    color: red;
+    font-size: 10px;
+}
+</style>
+<script type="text/javascript">
+    require(["jquery"],function($){
+    jQuery(".increaseqty3").click(function(e){
+        e.preventDefault();
+        var qty = jQuery(this).closest("div.control").find("input");
+        var newqty = parseInt(qty.val())+parseInt(1);
+        qty.val(newqty);
+        var val = qty.val();
+        var changeQty = parseInt(val);
+        qtyLabel = jQuery(this).closest("div.control").find("span");
+        jQuery(qtyLabel).text(changeQty);
+        return false;
+    });
+
+    jQuery(".decreaseqty3").click(function(){
+        var qty = jQuery(this).closest("div.control").find("input");
+        var newqty = parseInt(qty.val())-parseInt(1);
+        if(newqty < 1){
+            return false;
+        }
+        qty.val(newqty);
+        var val = qty.val();
+        var changeQty = parseInt(val);
+        qtyLabel = jQuery(this).closest("div.control").find("span");
+        jQuery(qtyLabel).text(changeQty);
+        return false;
+
+    });
+});
+    require([ 'jquery', 'jquery/ui'], function($){ $(document).ready(function($) {
+    $(window).load(function() {
+    {
+      var lnv = $('#lnv').val();
+      $( "#4lnf" ).html(lnv);
+    }
+  });
+}); });
+</script>
+<?php   $objectManager1 = \Magento\Framework\App\ObjectManager::getInstance();
+        $category1 = $objectManager1->get('Magento\Framework\Registry')->registry('current_category');
+    ?>
+    <div class="category-description" id="cat-des">
+       <?php 
+       if($category1){
+       echo $category1->getCustomListDescription();
+        }
+       ?>
+     </div>
+     

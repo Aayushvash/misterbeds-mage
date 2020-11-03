@@ -1,14 +1,29 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <move element="page.main.title" destination="product.info.main" before="-"/>
-        <move element="product.info.stock.sku" destination="product.info.price" after="product.price.final"/>
-        <move element="product.info.review" destination="product.info.main" before="product.info.price"/>
+        <referenceBlock name="product.info.details">
+            <block class="Magento\Catalog\Block\Product\View" name="specification.tab" template="Magento_Catalog::product/view/specification.phtml" group="detailed_info" >
+            <arguments>
+                <argument translate="true" name="title" xsi:type="string">Specificaties</argument>
+                <argument name="sort_order" xsi:type="string">20</argument>
+            </arguments>
+            </block> 
+             <block class="Magento\Catalog\Block\Product\View" name="installatie.tab" template="Magento_Catalog::product/view/installatie.phtml" group="detailed_info" >
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Installatie</argument>
+                     <argument name="sort_order" xsi:type="string">25</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="content.aside">
+            <block class="Magento\Catalog\Block\Product\ProductList\Related" name="catalog.product.related" template="Magento_Catalog::product/list/related.phtml" >
+            </block> 
+        </referenceContainer>
+        <referenceBlock name="product.info.social" remove="true"/>
+        <referenceContainer name="columns" htmlClass="container" />
+        <move element="product.info.review" destination="product.info.main" after="product.info.price"/>
+        <!-- <referenceContainer name="product.info.price" htmlClass="product-info" /> -->
+        <move element="page.messages" destination="product.info.main" before="product.info.overview" />
+        <move element="product.info.stock.sku" destination="alert.urls" before="-"/>
     </body>
 </page>

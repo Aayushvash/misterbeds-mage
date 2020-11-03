@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Store\Block\Switcher $block */
+ 
+?>
+<?php  if (count($block->getStores())>1) : ?>
+    <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : '' ?>
+   
+        <div class="selectDrpdwn" data-ui-id="language-switcher" id="switcher-language<?= $block->escapeHtmlAttr($id) ?>">
+            <a href="javascript:void(0);" class="selectValue">
+                <?php
+                   
+                    $lang = $block->getStoreName(); 
+                       if($lang == 'Dutch'){ ?>
+                           <img src="<?php echo $block->getViewFileUrl('images/flag_nl.svg');?>" alt="" />
+                           <em>NL</em>
+                        <? }else if($lang == 'German'){ ?>
+                            <img src="<?php echo $block->getViewFileUrl('images/flag_de.svg'); ?>" alt="" />
+                            <em>DE</em>
+                       <?php  }else{ ?>
+                            <img src="<?php echo $block->getViewFileUrl('images/flag_en.svg');?>" alt="" />
+                            <em>EN</em>
+                       <?php } ?>
+                <i class="fas fa-angle-down"></i></a>
+            <ul class="UlSelect" data-target="dropdown">
+                <?php 
+                foreach ($block->getStores() as $_lang) : ?>
+                        
+                    <?php if ($_lang->getId() != $block->getCurrentStoreId()) : ?>
+                        <li class="view-<?= $block->escapeHtml($_lang->getCode()) ?> switcher-option">
+                            <a href="<?= $block->escapeUrl($block->getViewModel()->getTargetStoreRedirectUrl($_lang)) ?>">
+                                <?php if ($_lang->getCode() != 'default'): ?>
+                                <img src="<?php echo $this->getViewFileUrl('images/flag_' . $_lang->getCode() . '.svg');?>" />
+                                <?php $_lang = $_lang->getName(); 
+                                       if($_lang == 'English'){
+                                            echo "<em>EN</em>";
+                                        }else if($_lang == 'Dutch'){
+                                            echo "<em>NL</em>";
+                                        }else{
+                                            echo "<em>DE</em>";
+                                        }
+                                ?>
+                                <?php endif;?>
+                            </a>
+                        </li>
+
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+  
+<?php endif; ?>

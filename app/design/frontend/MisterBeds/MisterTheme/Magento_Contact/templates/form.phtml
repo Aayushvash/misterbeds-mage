@@ -1,0 +1,100 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Contact\Block\ContactForm $block */
+?>
+<div class="container cont_sec">
+    <div class="cont_block">
+<form class="form contact"
+      action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+      id="contact-form"
+      method="post"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <div class="field email required">
+            <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input name="email" id="email" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" value="<?= $block->escapeHtmlAttr($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('email') ?: $this->helper(\Magento\Contact\Helper\Data::class)->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+            </div>
+        </div>
+        <div class="field telephone">
+            <label class="label" for="telephone"><span><?= $block->escapeHtml(__('Phone Number')) ?></span></label>
+            <div class="control">
+                <input name="telephone" id="telephone" title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>" value="<?= $block->escapeHtmlAttr($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('telephone')) ?>" class="input-text" type="text" />
+            </div>
+        </div>
+        <div class="field comment required">
+            <label class="label" for="comment"><span><?= $block->escapeHtml(__('What’s on your mind?')) ?></span></label>
+            <div class="control">
+                <textarea name="comment" id="comment" title="<?= $block->escapeHtmlAttr(__('What’s on your mind?')) ?>" class="input-text" cols="5" rows="3" data-validate="{required:true}"><?= $block->escapeHtml($this->helper(\Magento\Contact\Helper\Data::class)->getPostValue('comment')) ?></textarea>
+            </div>
+        </div>
+        <?= $block->getChildHtml('form.additional.info') ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                <span><?= $block->escapeHtml(__('Submit')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+</div>
+</div>
+<style type="text/css">
+    h1.page-title {
+    display: none;
+}
+/*section#content-wrap {
+    display: none;
+}*/
+.contact-wrap .categories-block {
+    -ms-flex: 0 0 59.5%!important;
+    flex: 0 0 59.5%!important;
+    max-width: 59.5%!important;
+}
+.social-panel ul li.fb a i {
+    color: #3b5998;
+}
+.social-panel ul li.whatsapp a i {
+    color: #65d072;
+}
+.social-panel ul li a, .social-panel ul li a:after, .add-panel ul li {
+    color: #000000;
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    position: relative;
+}
+.social-panel ul li.mail a i {
+    color: #333333;
+    font-size: 16px;
+    font-weight: 400;
+}
+.add-panel ul li i {
+    width: 33px;
+    color: #ee9733;
+    font-size: 15px;
+}
+.social-panel.add-panel ul li i {
+    margin-right: 0px;
+}
+.social-panel ul li a i {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 19px;
+    font-weight: 400;
+    margin-right: 34px;
+}
+.add-panel ul li {
+    display: flex;
+    margin-bottom: 10px;
+    line-height: 23px;
+}
+</style>

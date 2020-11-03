@@ -1,8 +1,17 @@
 <!--begin template -->
 <section id="template">
-	
+	<?php 
+		$objectManager11 = \Magento\Framework\App\ObjectManager::getInstance();
+    $category11 = $objectManager11->get('Magento\Framework\Registry')->registry('current_category');
+    if(is_null($category11))  {
+       $class = "";
+   } else {
+        $subcats = $category11->getChildrenCategories();
+        $class =   (count($subcats) > 0) ? "parent-cats" : "";
+   }
+	?>
 	<!-- begin layout -->
-	<section id="layout">
+	<section id="layout" class="<?php echo $class; ?>">
 		
 		<!-- begin header -->
 		<header id="header-wrap">

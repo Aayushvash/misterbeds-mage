@@ -1,0 +1,184 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<div class="thankyou-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="thankyou-panel">
+                                <div class="title">
+                                    <p>We hebben uw bestelling ontvangen. Hieronder leggen we uit wat u nu van ons mag verwachten om uw bestelling gereed te maken.</p>
+                                </div>
+                                <div class="text-panel">
+                                    <div class="icon-panel">
+                                        <span><i class="fas fa-truck"></i></span>
+                                    </div>
+                                    <div class="t-text-panel">
+                                        <h5>Stap 1: Ontvangbevestiging</h5>
+                                        <p><?= $block->escapeHtml(__('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeUrl($block->getViewOrderUrl()), $block->getOrderId())), ['a', 'strong']) ?>Binnen enkele ogenblikken versturen we de orderbevestiging per mail.</p>
+                                    </div>
+                                </div>
+                                <div class="text-panel">
+                                    <div class="icon-panel">
+                                        <span><i class="fas fa-truck"></i></span>
+                                    </div>
+                                    <div class="t-text-panel">
+                                        <h5>Stap 2: We verpakken zorgvuldig uw bestelling</h5>
+                                        <p>We hebben altijd meer dan 1500 producten op voorraad. Zo garanderen we dat we uw bestelling binnen een werkdag kunnen inpakken en verzenden.</p>
+                                    </div>
+                                </div>
+                                <div class="text-panel">
+                                    <div class="icon-panel">
+                                        <span><i class="fas fa-truck"></i></span>
+                                    </div>
+                                    <div class="t-text-panel">
+                                        <h5>Stap 3: We geven uw bestelling mee voor transport</h5>
+                                        <p>Zodra we u bestelling hebben overhandigd aan de vervoerder ontvangt u per mail de track & trace code. Zo kunt u uw bestelling volgen tot aan uw voordeur.</p>
+                                    </div>
+                                </div>
+                                <div class="text-panel">
+                                    <div class="icon-panel">
+                                        <span><i class="fas fa-truck"></i></span>
+                                    </div>
+                                    <div class="t-text-panel">
+                                        <h5>Stap 4: Uw bestelling is gearriveerd</h5>
+                                        <p>Uw bestelling moet uiterlijk binnen 3 werkdagen bij u afgeleverd zijn. Veel plezier van uw bestelling. Mocht er iets niet in orde zijn, neem dan contact met ons op.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col1">
+                            <figure><img src="<?php echo $this->getViewFileUrl('images/man-img.png'); ?>" alt="img" /></figure>
+                            <div class="social-block">
+                                <h4>Laat uw bestelling zien op de 4x4center.nl social media</h4>
+                                <ul>
+                                    <li class="fb"><a href="https://www.facebook.com/4x4Center.nl/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li class="insta"><a href="https://www.instagram.com/4x4center.nl/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                                    <li class="ytube"><a href="https://www.youtube.com/channel/UCNrcaULeQeAkGbArxD9ibyw" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                                    <li class="linkedin"><a href="https://www.linkedin.com/company/4x4center" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<style type="text/css">
+ .checkout-onepage-success .page-title-wrapper {
+    padding-top: 30px;
+}
+
+.checkout-onepage-success .page-title-wrapper h1.page-title {
+    color: #000000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.checkout-onepage-success .checkout-success p {
+    font-size: 13px !important;
+    font-weight: 500;
+    color: #000000;
+    font-family: 'Raleway', sans-serif;
+    line-height: 24px;
+}
+
+.checkout-onepage-success .actions-toolbar .primary a.action.primary.continue {
+    border-radius: 4px;
+    background-color: #ee9733;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+    display: inline-block;
+    padding: 12px 20px;
+    border-color: #ee9733;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.checkout-onepage-success #registration a.action.primary {
+    border-radius: 4px;
+    background-color: #ee9733;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+    display: inline-block;
+    padding: 12px 20px;
+    border-color: #ee9733;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 40px;
+}
+.thankyou-panel .title {
+    text-align: inherit;
+    margin-bottom: 27px;
+}
+.thankyou-panel .icon-panel span i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    color: #fff;
+    font-size: 20px;
+}
+.thankyou-panel .t-text-panel {
+    -ms-flex: 0 0 85%;
+    flex: 0 0 85%;
+    max-width: 85%;
+}
+.thankyou-panel .icon-panel {
+    -ms-flex: 0 0 15%;
+    flex: 0 0 15%;
+    max-width: 15%;
+}
+.thankyou-panel .text-panel {
+    display: flex;
+    margin-bottom: 37px;
+}
+.thankyou-block .social-block {
+    background-color: #efefef;
+    padding: 28px 33px 20px;
+}
+.social-block {
+    border-radius: 4px;
+    background-color: #ee9733;
+    padding: 20px 15px;
+}
+div#registration {
+    display: none;
+}
+.thankyou-panel .t-text-panel h5 {
+    margin-bottom: 10px;
+}
+p {
+    color: #000000;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+.thankyou-block .col1 {
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+    max-width: 32%;
+}
+.thankyou-block .col {
+    -ms-flex: 0 0 58%;
+    flex: 0 0 58%;
+    max-width: 58%;
+    margin-right: 10%;
+}
+.thankyou-panel .icon-panel span {
+    display: block;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #ee9733;
+    position: relative;
+}
+</style>

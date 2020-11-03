@@ -1,0 +1,162 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
+$product1 = $objectManager->get('Magento\Framework\Registry')->registry('current_product');//get current product
+$relatedProducts = $product1->getRelatedProducts();
+ ?>
+<!-- begin product-wrap-->
+			<?php if (!empty($relatedProducts)) { ?>
+			<section class="product-wrap">
+				<div class="container">
+					<h3>Anderen kochten ook</h3>
+					<div class="owl-carousel owl-theme">
+						<?php 
+						foreach ($relatedProducts as $relatedProduct) {
+        				$product = $objectManager->create('Magento\Catalog\Model\Product')->load($relatedProduct->getId()); 
+        				$pname=$product->getName();
+					     $productprice=$product->getPrice();
+					     $producturl=$product->getProductUrl();
+					     $psdescription=$product->getShortDescription();
+					     $formattedPrice = $priceHelper->currency($productprice, true, false);
+					    $imageUrl = $this->getUrl().'pub/media/catalog/product'.$product->getImage();
+					     $addToCartUrl =  $listBlock->getAddToCartUrl($product);
+        				?>
+							<div class="item" style="width:250px">
+							<div class="product-panel">
+								<div class="top-panel">
+									<figure><a href="<?php echo $producturl ;?>"><img src="<?php echo $imageUrl;?>"></a></figure>
+									<h5><a href="<?php echo $producturl ;?>"><?php echo $pname; ?></a></h5>
+									<div class="ratings">
+										<?php
+										$productId = $product->getId();
+										$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+										$reviewFactory = $objectManager->create('Magento\Review\Model\Review');
+										$product = $objectManager->create('Magento\Catalog\Model\Product')->load($productId);
+										$storeManager  = $objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+										$storeId = $storeManager->getStore()->getStoreId();
+										$reviewFactory->getEntitySummary($product, $storeId);
+
+										$ratingSummary = $product->getRatingSummary()->getRatingSummary();
+										$reviewCount = $product->getRatingSummary()->getReviewsCount();
+										?>
+										<?php if($ratingSummary){ ?>
+										<div class="product-reviews-summary short">
+										    <div class="rating-summary">
+										        <div title="<?php echo (int)$ratingSummary; ?>%" class="rating-result">
+										            <span style="width:<?php echo (int)$ratingSummary; ?>%"><span><?php echo (int)$ratingSummary; ?>%</span></span>
+										        </div>
+										    </div>
+										    <div class="reviews-actions">
+										        <?php echo __(''.$reviewCount.' Reviews'); ?>
+										    </div>
+										</div>
+										<?php } ?>
+										<!-- <span> <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span><sub>21 reviews</sub> --> </div>
+									<div class="usp-block">
+										<?php echo  $psdescription; ?>
+									</div>
+									<div class="price">
+										<span><?php echo $formattedPrice; ?></span>
+										<sub>Op voorraad</sub>
+									</div>
+								</div>
+								<form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post"> 
+							    <?php echo $block->getBlockHtml('formkey')?>
+									<div class="bottom-panel">
+									<div class="field qty">
+	                                <div class="control qty-change">
+	                                <ul class="number">
+	                                <li class="minus">
+	                                <p class="input-group-btn">
+	                                <button class="decreaseqty1">-</button>
+	                                </p>
+	                                </li>
+	                                <input type="hidden"
+	                                name="qty"
+	                                id="qty"
+	                                value="1"
+	                                title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+	                                class="input-text qty"
+	                                data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+	                                />
+	                                <li> 
+	                                <span class="qty-label"> 1 </span>
+	                                </li>
+	                                <li class="plus">
+	                                <p class="input-group-btn"> 
+	                                <button class="increaseqty1">+</button>
+	                                </p>
+	                                </li>
+	                                </ul>
+	                                </div>
+                                </div>
+                        	 	<div class="btn">
+							        <button type="submit" title="In winkelwagen" class="action tocart primary">
+							            <span><i class="fas fa-shopping-cart"></i>In winkelwagen</span>
+							        </button>
+							    </div> 
+                            </div>  
+							 </form>
+							</div>
+						</div>
+					<?php } ?>
+					</div>
+				</div>
+			</section>
+			<!-- finish product-wrap -->
+			<?php } ?>
+			<!-- finish content -->
+				<script type="text/javascript">
+		    require(["jquery"],function($){
+		    jQuery(".increaseqty1").click(function(e){
+		        e.preventDefault();
+		        var qty = jQuery(this).closest("div.control").find("input");
+		        var newqty = parseInt(qty.val())+parseInt(1);
+		        qty.val(newqty);
+		        var val = qty.val();
+		        var changeQty = parseInt(val);
+		        qtyLabel = jQuery(this).closest("div.control").find("span");
+		        jQuery(qtyLabel).text(changeQty);
+		        return false;
+		    });
+
+		    jQuery(".decreaseqty1").click(function(){
+		        var qty = jQuery(this).closest("div.control").find("input");
+		        var newqty = parseInt(qty.val())-parseInt(1);
+		        if(newqty < 1){
+		            return false;
+		        }
+		        qty.val(newqty);
+		        var val = qty.val();
+		        var changeQty = parseInt(val);
+		        qtyLabel = jQuery(this).closest("div.control").find("span");
+		        jQuery(qtyLabel).text(changeQty);
+		        return false;
+
+		    });
+		});
+		</script>
+		<style type="text/css">
+			.quantityn {
+    	height: 24px!important;
+    	color: #0e0e0e;
+    	font-weight: 900;
+		}
+		input[type="text"]{
+   		 padding: 0px 4px;
+   
+		}
+		button{
+	    background: #ffffff!important;
+	    border: 1px solid #ffffff!important;
+	    color: #333333!important;
+	    font-weight: 700!important;
+	    line-height: 23px!important;
+	    padding: 0px 0px!important; 
+  		}
+  		h4 {
+    		 margin-top: 0rem!important; 
+    		 margin-bottom: 0rem!important; 
+			}
+		</style>

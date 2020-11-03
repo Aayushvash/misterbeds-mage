@@ -13,68 +13,803 @@
 ?>
 
 <?php if ($block->canShowBlock()) : ?>
-    <div class="block filter" id="layered-filter-block" data-mage-init='
-    {
-        "collapsible":
-        {
-            "openedState": "active",
-            "collapsible": true,
-            "active": false,
-            "collateral":
-            {
-                "openedState": "filter-active",
-                "element": "body"
-            }
-        }
-    }'>
-        <?php $filtered = count($block->getLayer()->getState()->getFilters()) ?>
-        <div class="block-title filter-title" data-count="<?= /* @noEscape */ $filtered ?>">
-            <strong data-role="title"><?= $block->escapeHtml(__('Shop By')); ?></strong>
+    <div class="block filter">
+        <div class="block-title filter-title" >
+            <strong><?= $block->escapeHtml(__('Shop By')) ?></strong>
         </div>
-        <div class="block-content filter-content">
+        <div class="block-content filter-content" >
             <?= $block->getChildHtml('state') ?>
 
             <?php if ($block->getLayer()->getState()->getFilters()) : ?>
                 <div class="block-actions filter-actions">
-                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="action clear filter-clear">
-                        <span><?= $block->escapeHtml(__('Clear All')) ?></span>
-                    </a>
+                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="action clear filter-clear"><span><?= $block->escapeHtml(__('Clear All')) ?></span></a>
                 </div>
             <?php endif; ?>
             <?php $wrapOptions = false; ?>
-            <?php foreach ($block->getFilters() as $filter) : ?>
-                <?php if ($filter->getItemsCount()) : ?>
-                    <?php if (!$wrapOptions) : ?>
-                        <strong role="heading" aria-level="2" class="block-subtitle filter-subtitle"><?= $block->escapeHtml(__('Shopping Options')) ?></strong>
-                        <div class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='
-                        {
-                            "accordion":
-                            {
-                                "openedState": "active",
-                                "collapsible": true,
-                                "active": false,
-                                "multipleCollapsible": false
-                            }
-                        }'>
-                        <?php $wrapOptions = true;
-                        endif; ?>
-                    <div data-role="collapsible" class="filter-options-item">
-                        <div data-role="title" class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?></div>
-                        <div data-role="content" class="filter-options-content"><?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?></div>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
+            <?php 
+             $i=1;
+            foreach ($block->getFilters() as $filter) : 
+                ?>
+                <?php if (!$wrapOptions) : ?>
+                    <strong role="heading" aria-level="2" class="block-subtitle filter-subtitle"><?= $block->escapeHtml(__('Shopping Options')) ?></strong>
+                    <dl class="filter-options" id="narrow-by-list">
+                    <?php $wrapOptions = true;
+                endif; ?>
+                    <?php if ($filter->getItemsCount()) : ?>
+                        <dt role="heading" aria-level="3" class="filter-options-title listtitle<?php echo $i; ?>"><?= $block->escapeHtml(__($filter->getName())) ?></dt>
+                        <dd class="list<?php echo $i; ?> filter-options-content"><?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?>
+                        <button class="show-more showm<?php echo $i; ?>" id="next<?php echo $i; ?>"><i class="fas fa-plus"></i>Toon meer</button>    
+                        </dd>
+                    <?php endif; ?>
+            <?php $i++;  endforeach; ?>
             <?php if ($wrapOptions) : ?>
-                </div>
-            <?php else : ?>
-                <script>
-                    require([
-                        'jquery'
-                    ], function ($) {
-                        $('#layered-filter-block').addClass('filter-no-options');
-                    });
-                </script>
+
+                </dl>
+
             <?php endif; ?>
+
+        </div>
+        
+    </div>
+<?php endif; ?>
+<style type="text/css">
+    .showm6
+    {
+        display: none;
+    }
+    .showm7
+    {
+        display: none;
+    }
+    .showm8 
+    {
+        display: none;
+    }
+    .showm11 
+    {
+        display: none;
+    }
+    .showm12 
+    {
+        display: none;
+    }
+    .showm18 
+    {
+        display: none;
+    }
+    .showm19 
+    {
+        display: none;
+    }
+    .showm22
+    {
+        display: none;
+    }
+    .showm25
+    {
+        display: none;
+    }
+    .showm28
+    {
+        display: none;
+    }
+    .showm29
+    {
+        display: none;
+    }
+    .showm30
+    {
+        display: none;
+    }
+    .showm31
+    {
+        display: none;
+    }
+    .showm38
+    {
+        display: none;
+    }
+    .showm45
+    {
+        display: none;
+    }
+    .showm46
+    {
+        display: none;
+    }
+    .showm47
+    {
+        display: none;
+    }
+    .showm50
+    {
+        display: none;
+    }
+    .showm51
+    {
+        display: none;
+    }
+</style>
+<script type="text/javascript">
+    require(["jquery"], function($){ 
+    $(document).ready(function(){
+      /*1*/
+      if ( $('.list1 li').length < 10 ) {
+        $(".showm1").hide();
+      }
+      var list = $(".list1 li");
+      var numToShow = 10;
+      var button = $("#next1");
+      var numInList = list.length;
+      list.hide();
+      if (numInList > numToShow) {
+        button.show();
+      }
+      list.slice(0, numToShow).show();
+
+      button.click(function(){
+          var showing = list.filter(':visible').length;
+          list.slice(showing - 1, showing + numToShow).fadeIn();
+          var nowShowing = list.filter(':visible').length;
+          if (nowShowing >= numInList) {
+            button.hide();
+          }
+      });
+      /*2*/ 
+      if ( $('.list2 li').length < 10 ) {
+        $(".showm2").hide();
+      }
+       var list2 = $(".list2 li");
+      var numToShow2 = 5;
+      var button2 = $("#next2");
+      var numInList2 = list2.length;
+      list2.hide();
+      if (numInList2 > numToShow2) {
+        button2.show();
+      }
+      list2.slice(5, numToShow2).show();
+
+      button2.click(function(){
+          var showing2 = list2.filter(':visible').length;
+          list2.slice(showing2 - 1, showing2 + numToShow2).fadeIn();
+          var nowShowing2 = list2.filter(':visible').length;
+          if (nowShowing2 >= numInList2) {
+            button2.hide();
+          }
+      });
+      /*3*/
+      if ( $('.list3 li').length < 10 ) {
+        $(".showm3").hide();
+      }
+     var list3 = $(".list3 li");
+      var numToShow3 = 10;
+      var button3 = $("#next3");
+      var numInList3 = list3.length;
+      list3.hide();
+      if (numInList3 > numToShow3) {
+        button3.show();
+      }
+      list3.slice(0, numToShow3).show();
+
+      button3.click(function(){
+          var showing3 = list3.filter(':visible').length;
+          list3.slice(showing3 - 1, showing3 + numToShow3).fadeIn();
+          var nowShowing3 = list3.filter(':visible').length;
+          if (nowShowing3 >= numInList3) {
+            button3.hide();
+          }
+      });
+      /*4*/
+      if ( $('.list4 li').length < 10 ) {
+        $(".showm4").hide();
+      }
+      var list4 = $(".list4 li");
+      var numToShow4 = 10;
+      var button4 = $("#next4");
+      var numInList4 = list4.length;
+      list4.hide();
+      if (numInList4 > numToShow4) {
+        button4.show();
+      }
+      list4.slice(0, numToShow4).show();
+      button4.click(function(){
+          var showing4 = list4.filter(':visible').length;
+          list4.slice(showing4 - 1, showing4 + numToShow4).fadeIn();
+          var nowShowing4 = list4.filter(':visible').length;
+          if (nowShowing4 >= numInList4) {
+            button4.hide();
+          }
+      });
+      /*5*/
+      if ( $('.list5 li').length < 10 ) {
+        $(".showm5").hide();
+      }
+      var list5 = $(".list5 li");
+      var numToShow5 = 5;
+      var button5 = $("#next5");
+      var numInList5 = list5.length;
+      list5.hide();
+      if (numInList5 > numToShow5) {
+        button5.show();
+      }
+      list5.slice(0, numToShow5).show();
+      button5.click(function(){
+          var showing5 = list5.filter(':visible').length;
+          list5.slice(showing5 - 1, showing5 + numToShow5).fadeIn();
+          var nowShowing5 = list5.filter(':visible').length;
+          if (nowShowing5 >= numInList5) {
+            button5.hide();
+          }
+      });
+      /*6*/
+      if ( $('.list6 li').length < 10 ) {
+        $(".showm6").hide();
+      }
+      var list6 = $(".list6 li");
+      var numToShow6 = 5;
+      var button6 = $("#next6");
+      var numInList6 = list6.length;
+      list6.hide();
+      if (numInList6 > numToShow6) {
+        button6.show();
+      }
+      list6.slice(0, numToShow6).show();
+      button6.click(function(){
+          var showing6 = list6.filter(':visible').length;
+          list6.slice(showing6 - 1, showing6 + numToShow6).fadeIn();
+          var nowShowing6 = list6.filter(':visible').length;
+          if (nowShowing6 >= numInList6) {
+            button6.hide();
+          }
+      });
+      /*7*/
+      /*8*/
+      /*9*/
+      if ( $('.list9 li').length < 10 ) {
+        $(".showm9").hide();
+      }
+      var list9 = $(".list9 li");
+      var numToShow9 = 10;
+      var button9 = $("#next9");
+      var numInList9 = list9.length;
+      list9.hide();
+      if (numInList9 > numToShow9) {
+        button9.show();
+      }
+      list9.slice(0, numToShow9).show();
+      button9.click(function(){
+          var showing9 = list9.filter(':visible').length;
+          list9.slice(showing9 - 1, showing9 + numToShow9).fadeIn();
+          var nowShowing9 = list9.filter(':visible').length;
+          if (nowShowing9 >= numInList9) {
+            button9.hide();
+          }
+      });
+      /*10*/
+      /*11*/
+      /*12*/
+      /*13*/
+      if ( $('.list13 li').length < 10 ) {
+        $(".showm13").hide();
+      }
+      var list13 = $(".list13 li");
+      var numToShow13 = 10;
+      var button13 = $("#next13");
+      var numInList13 = list13.length;
+      list13.hide();
+      if (numInList13 > numToShow13) {
+        button13.show();
+      }
+      list13.slice(0, numToShow13).show();
+      button13.click(function(){
+          var showing13 = list13.filter(':visible').length;
+          list13.slice(showing13 - 1, showing13 + numToShow13).fadeIn();
+          var nowShowing13 = list13.filter(':visible').length;
+          if (nowShowing13 >= numInList13) {
+            button13.hide();
+          }
+      });
+      /*17*/
+      if ( $('.list17 li').length < 10 ) {
+        $(".showm17").hide();
+      }
+      var list17 = $(".list17 li");
+      var numToShow17 = 10;
+      var button17 = $("#next17");
+      var numInList17 = list17.length;
+      list17.hide();
+      if (numInList17 > numToShow17) {
+        button17.show();
+      }
+      list17.slice(0, numToShow17).show();
+      button17.click(function(){
+          var showing17 = list17.filter(':visible').length;
+          list17.slice(showing17 - 1, showing17 + numToShow17).fadeIn();
+          var nowShowing17 = list17.filter(':visible').length;
+          if (nowShowing17 >= numInList17) {
+            button17.hide();
+          }
+      });
+      /*20*/
+      if ( $('.list20 li').length < 10 ) {
+        $(".showm20").hide();
+      }
+      var list20 = $(".list20 li");
+      var numToShow20 = 10;
+      var button20 = $("#next20");
+      var numInList20 = list20.length;
+      list20.hide();
+      if (numInList20 > numToShow20) {
+        button20.show();
+      }
+      list20.slice(0, numToShow20).show();
+      button20.click(function(){
+          var showing20 = list20.filter(':visible').length;
+          list20.slice(showing20 - 1, showing20 + numToShow20).fadeIn();
+          var nowShowing20 = list20.filter(':visible').length;
+          if (nowShowing20 >= numInList20) {
+            button20.hide();
+          }
+      });
+      /*21*/
+      if ( $('.list21 li').length < 10 ) {
+        $(".showm21").hide();
+      }
+      var list21 = $(".list21 li");
+      var numToShow21 = 5;
+      var button21 = $("#next21");
+      var numInList21 = list21.length;
+      list21.hide();
+      if (numInList21 > numToShow21) {
+        button21.show();
+      }
+      list21.slice(0, numToShow21).show();
+      button21.click(function(){
+          var showing21 = list21.filter(':visible').length;
+          list21.slice(showing21 - 1, showing21 + numToShow21).fadeIn();
+          var nowShowing21 = list21.filter(':visible').length;
+          if (nowShowing21 >= numInList21) {
+            button21.hide();
+          }
+      });
+      /*23*/
+      if ( $('.list23 li').length < 10 ) {
+        $(".showm23").hide();
+      }
+      var list23 = $(".list23 li");
+      var numToShow23 = 5;
+      var button23 = $("#next23");
+      var numInList23 = list23.length;
+      list23.hide();
+      if (numInList23 > numToShow23) {
+        button23.show();
+      }
+      list23.slice(0, numToShow23).show();
+      button23.click(function(){
+          var showing23 = list23.filter(':visible').length;
+          list23.slice(showing23 - 1, showing23 + numToShow23).fadeIn();
+          var nowShowing23 = list23.filter(':visible').length;
+          if (nowShowing23 >= numInList23) {
+            button23.hide();
+          }
+      });
+      /*26*/
+      if ( $('.list26 li').length < 10 ) {
+        $(".showm26").hide();
+      }
+      var list26 = $(".list26 li");
+      var numToShow26 = 5;
+      var button26 = $("#next26");
+      var numInList26 = list26.length;
+      list26.hide();
+      if (numInList26 > numToShow26) {
+        button26.show();
+      }
+      list26.slice(0, numToShow26).show();
+      button26.click(function(){
+          var showing26 = list26.filter(':visible').length;
+          list26.slice(showing26 - 1, showing26 + numToShow26).fadeIn();
+          var nowShowing26 = list26.filter(':visible').length;
+          if (nowShowing26 >= numInList26) {
+            button26.hide();
+          }
+      });
+      /*35*/
+      if ( $('.list35 li').length < 10 ) {
+        $(".showm35").hide();
+      }
+      var list35 = $(".list35 li");
+      var numToShow35 = 5;
+      var button35 = $("#next35");
+      var numInList35 = list35.length;
+      list35.hide();
+      if (numInList35 > numToShow35) {
+        button35.show();
+      }
+      list35.slice(0, numToShow35).show();
+      button35.click(function(){
+          var showing35 = list35.filter(':visible').length;
+          list35.slice(showing35 - 1, showing35 + numToShow35).fadeIn();
+          var nowShowing35 = list35.filter(':visible').length;
+          if (nowShowing35 >= numInList35) {
+            button35.hide();
+          }
+      });
+      /*40*/
+      if ( $('.list40 li').length < 10 ) {
+        $(".showm40").hide();
+      }
+      var list40 = $(".list40 li");
+      var numToShow40 = 10;
+      var button40 = $("#next40");
+      var numInList40 = list40.length;
+      list40.hide();
+      if (numInList40 > numToShow40) {
+        button40.show();
+      }
+      list40.slice(0, numToShow40).show();
+      button40.click(function(){
+          var showing40 = list40.filter(':visible').length;
+          list40.slice(showing40 - 1, showing40 + numToShow40).fadeIn();
+          var nowShowing40 = list40.filter(':visible').length;
+          if (nowShowing40 >= numInList40) {
+            button40.hide();
+          }
+      });
+      /*41*/
+      if ( $('.list41 li').length < 10 ) {
+        $(".showm41").hide();
+      }
+      var list41 = $(".list41 li");
+      var numToShow41 = 5;
+      var button41 = $("#next41");
+      var numInList41 = list41.length;
+      list41.hide();
+      if (numInList41 > numToShow41) {
+        button41.show();
+      }
+      list41.slice(0, numToShow41).show();
+      button41.click(function(){
+          var showing41 = list41.filter(':visible').length;
+          list41.slice(showing41 - 1, showing41 + numToShow41).fadeIn();
+          var nowShowing41 = list41.filter(':visible').length;
+          if (nowShowing41 >= numInList41) {
+            button41.hide();
+          }
+      });
+      /*close 41*/
+      /*42*/
+      if ( $('.list42 li').length < 10 ) {
+        $(".showm42").hide();
+      }
+      var list42 = $(".list42 li");
+      var numToShow42 = 10;
+      var button42 = $("#next42");
+      var numInList42 = list42.length;
+      list42.hide();
+      if (numInList42 > numToShow42) {
+        button42.show();
+      }
+      list42.slice(0, numToShow42).show();
+      button42.click(function(){
+          var showing42 = list42.filter(':visible').length;
+          list42.slice(showing42 - 1, showing42 + numToShow42).fadeIn();
+          var nowShowing42 = list42.filter(':visible').length;
+          if (nowShowing42 >= numInList42) {
+            button42.hide();
+          }
+      });
+      /*close 42*/
+       /*43*/
+       if ( $('.list43 li').length < 10 ) {
+        $(".showm43").hide();
+      }
+      var list43 = $(".list43 li");
+      var numToShow43 = 10;
+      var button43 = $("#next43");
+      var numInList43 = list43.length;
+      list43.hide();
+      if (numInList43 > numToShow43) {
+        button43.show();
+      }
+      list43.slice(0, numToShow43).show();
+      button43.click(function(){
+          var showing43 = list43.filter(':visible').length;
+          list43.slice(showing43 - 1, showing43 + numToShow43).fadeIn();
+          var nowShowing43 = list43.filter(':visible').length;
+          if (nowShowing43 >= numInList43) {
+            button43.hide();
+          }
+      });
+      /*close 43*/
+      /*48*/
+      if ( $('.list48 li').length < 10 ) {
+        $(".showm48").hide();
+      }
+      var list48 = $(".list48 li");
+      var numToShow48 = 10;
+      var button48 = $("#next48");
+      var numInList48 = list48.length;
+      list48.hide();
+      if (numInList48 > numToShow48) {
+        button48.show();
+      }
+      list48.slice(0, numToShow48).show();
+
+      button48.click(function(){
+          var showing48 = list48.filter(':visible').length;
+          list48.slice(showing48 - 1, showing48 + numToShow48).fadeIn();
+          var nowShowing48 = list48.filter(':visible').length;
+          if (nowShowing48 >= numInList48) {
+            button48.hide();
+          }
+      });
+      /*CLOSE 48*/
+      /*51*/
+      if ( $('.list51 li').length < 10 ) {
+        $(".showm51").hide();
+      }
+      var list51 = $(".list51 li");
+      var numToShow51 = 10;
+      var button51 = $("#next51");
+      var numInList51 = list51.length;
+      list51.hide();
+      if (numInList51 > numToShow51) {
+        button51.show();
+      }
+      list51.slice(0, numToShow51).show();
+
+      button51.click(function(){
+          var showing51 = list51.filter(':visible').length;
+          list51.slice(showing51 - 1, showing51 + numToShow51).fadeIn();
+          var nowShowing51 = list51.filter(':visible').length;
+          if (nowShowing51 >= numInList51) {
+            button51.hide();
+          }
+      });
+      /*close 51*/
+
+});
+});
+</script>
+
+<script>
+  require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+  
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: '<?= $block->escapeHtml(__('Filtering')) ?>',
+                modalClass: 'mobilefilterpopupclass',
+                buttons: [{
+                    text: $.mage.__('Continue'),
+                    class: 'mymodal1',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+  
+
+            var popup = modal(options, $('#filter-modal'));
+            $("#click-filter").on('click',function(){
+                $("#filter-modal").modal("openModal");
+            });
+        }
+    );
+</script>
+<style type="text/css">
+@media  (min-width: 769px) {
+   .mobile-filter{
+    display: none;
+  }
+  
+  
+}
+@media  (max-width: 769px) {
+  .catalog-category-view .sidebar .mobile-filter .block-title.filter-title {
+    display: block !important;
+}
+   .mobile-filter .filter-options{
+    display: block !important;
+  }
+  .filter-options{
+    display: none;
+  }
+   .mobile-filter{
+    display: block !important;
+  }
+  .mobile-filter-title {
+    position: fixed;
+    bottom: 5px;
+    background: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    z-index: 999;
+    width: 55%;
+    margin-left: 19%;
+    text-align: center;
+    padding: 7px 10px;
+    border-radius: 7px;
+}
+#header-wrap{
+  z-index: 9 !important;
+}
+.mobilefilterpopupclass {
+    left: 0 !important;
+}
+.mobilefilterpopupclass header.modal-header h1 {
+    text-align: center !important;
+    width: 100%;
+    padding: 9px 0px !important;
+    border-bottom: 0 !important;
+}
+.mobilefilterpopupclass header.modal-header{
+  padding: 0 !important;
+}
+.collapsible1 {
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  border-bottom: 2px solid #ddd;
+}
+
+.collapsible1:hover {
+  background-color: #fff;
+}
+
+.content1 {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #fff;
+}
+dt.m-filter-options-title.m-listtitle:before {
+    content: "\f107" !important;
+    background: transparent;
+    color: #000 !important;
+    padding: 2px 11px !important;
+    font-size: 20px;
+    margin-top: 0px;
+    clear: both;
+    font-family: 'FontAwesome';
+    cursor: pointer;
+    float: right;
+    
+}
+dt.m-filter-options-title.m-listtitle.collapsible1.active:before {
+    transform: rotate(180deg);
+}
+.mobilefilterpopupclass .modal-content {
+    padding: 0;
+    border-style: 0 !important;
+}
+.mobilefilterpopupclass .modal-footer {
+    display: none;
+}
+.content1 ol li a {
+    font-size: 16px;
+    color: #000;
+    font-weight: 500;
+}
+
+.content1 ol li {
+    margin: 16px 0px;
+}
+.mobilefilterpopupclass button.action-close:before {
+    font-size: 50px !important;
+    font-weight: 900;
+}
+
+.mobilefilterpopupclass button.action-close {
+    background: #f4f4f4 !important;
+    border: 0 !important;
+}
+button.tot-product {
+    background-color: #15af78 !important;
+    width: 100%;
+    text-align: center !important;
+    color: #fff !important;
+    padding: 20px 0px !important;
+}
+.mobile-filter-content {
+    padding-bottom: 42px;
+}
+.mobilefilterpopupclass .modal-inner-wrap {
+    background: #fff !important;
+}
+.mobile-filter span.count:after {
+    content: ')';
+}
+.mobile-filter span.count:before {
+    content: '(';
+}
+.mobile-filter span.count{
+   color: #7d7d7d;
+}
+}
+
+
+ 
+</style>
+
+<div class="mobile-filter">
+  <?php if ($block->canShowBlock()) : ?>
+    <div class=" mobile-filter-next">
+        <div class="mobile-filter-title" id="click-filter" >
+            <strong><i class="fa fa-sliders"></i> <?= $block->escapeHtml(__('Filteren en sorteren')) ?></strong>
+        </div>
+          <div class="mobile-filter" id="filter-modal">
+        <div class=" mobile-filter-content" >
+            <?= $block->getChildHtml('state') ?>
+
+            <?php if ($block->getLayer()->getState()->getFilters()) : ?>
+                <div class="mobile-block-actions mobile-filter-actions">
+                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="m-action m-clear m-filter-clear"><span><?= $block->escapeHtml(__('Clear All')) ?></span></a>
+                </div>
+            <?php endif; ?>
+            <?php $wrapOptions = false; ?>
+            <?php 
+             $i=1;
+            foreach ($block->getFilters() as $filter) : 
+                ?>
+                <?php if (!$wrapOptions) : ?>
+                   
+                    <dl class="m-filter-options" id="m-narrow-by-list">
+                    <?php $wrapOptions = true;
+                endif; ?>
+                    <?php if ($filter->getItemsCount()) : ?>
+                        <dt role="heading" aria-level="3" class="m-filter-options-title m-listtitle collapsible1"><?= $block->escapeHtml(__($filter->getName())) ?></dt>
+                        <dd class="filter-options-content content1"><?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?>
+                         
+                        </dd>
+                    <?php endif; ?>
+            <?php $i++;  endforeach; ?>
+            <?php if ($wrapOptions) : ?>
+                </dl>
+            <?php endif; ?>
+            <button class="tot-product">Toon 
+              <span id="4lnf"></span>
+              <?php 
+            /*$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+          echo $product_count = $category->getProductCount();*/ ?> 
+          Producten</button>
+        </div>
         </div>
     </div>
 <?php endif; ?>
+</div>
+<script>
+requirejs([], function() {
+   var coll = document.getElementsByClassName("collapsible1");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content1 = this.nextElementSibling;
+    if (content1.style.display === "block") {
+      content1.style.display = "none";
+    } else {
+      content1.style.display = "block";
+    }
+  });
+}
+});
+
+</script>
