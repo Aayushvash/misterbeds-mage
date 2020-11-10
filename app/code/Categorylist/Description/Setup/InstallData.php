@@ -84,32 +84,6 @@ class InstallData implements InstallDataInterface
 			]
 			);
 
-
-
-            $eavSetup -> removeAttribute(\Magento\Catalog\Model\Category::ENTITY, 'custom_price_desc_banner');
-
-        
-            $eavSetup -> addAttribute(\Magento\Catalog\Model\Category :: ENTITY, 'custom_price_desc_banner', [
-                        'type' => 'text',
-                        'label' => 'Custom Price Description Banner',
-                        'input' => 'textarea',
-                        'required' => false,
-                        'sort_order' => 115,
-                        'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-                        'wysiwyg_enabled' => true,
-                        'is_html_allowed_on_front' => false,
-                        'group' => 'General Information',
-                        "default" => "",
-                        "class"    => "",
-                        "note"       => ""
-            ]
-            );
-					
-
-	
-
-
-
 		}
 
     }

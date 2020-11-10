@@ -204,60 +204,42 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                         $pname=$_product->getName();
                         
                          $producturl=$_product->getProductUrl();
-                         $psdescription=$_product->getShortDescription();
-                         $is_most = $_product->getAttributeText('most_popular_procuct'); 
-                         $is_most_text = $_product->getData('most_popular_ribbon_text');
+                         $psdescription=$_product->getShortDescription();  
+                         $is_most =  $_product['most_popular_procuct'];
+                         $is_most_text = $_product['most_popular_ribbon_text'];
+                      /*   
+                       echo "<pre>";
+                       var_dump($_product->debug());
+                       echo "</pre>"; */
+
+                       //echo $attrTestValue = $_getMyAttr->getFrontend()->getValue($_product);
+                      // $attribute_value = Mage::getResourceModel('catalog/product')->getAttributeRawValue($product_id, $attribute_code, $store_id);
+
                       
                         //$imageUrl = $this->getUrl().'pub/media/catalog/product'.$_product->getImage();
                         $imageUrl = $helperImport->init($_product, 'product_page_image_large')->setImageFile($_product->getFile())->resize(298,256)->getUrl();
 
                          $orgprice = $priceHelper->currency($_product->getPrice() , true, false);
                          $specialprice = $priceHelper->currency($_product->getSpecialPrice(), true, false);  
+                         $StockState = $objectManager->get('\Magento\CatalogInventory\Api\StockStateInterface');
+                         $StockState->getStockQty($_product->getId(), $_product->getStore()->getWebsiteId());
 
-                        ?>
-                        <?php
-$cc  = $_product->$whish->getWishlistItemCollection();
-count($cc);
-             foreach ($cc as $_wishlist_item) {
-                 print_r($_wishlist_item);
-                 echo "dddd";
-
-             }
-
-
-$objectManager111 = \Magento\Framework\App\ObjectManager::getInstance();
-$_in_wishlist = false;
-foreach ($this->helper('Magento\Wishlist\Helper\Data')->getWishlistItemCollection() as $_wishlist_item){
-    if($_product->getId() == $_wishlist_item->getProduct()->getId()){
-        $_in_wishlist = true;
-    }
-}
-$customerSession = $objectManager111->get('Magento\Customer\Model\Session');
-if($customerSession->isLoggedIn()) {
-    if($_in_wishlist){
-        ?>
-        <a href="#" data-post="#" data-action="already-in-wishlist"><span class="wish-list lineheight48"><img data-alt-src="<?php echo $block->getViewFileUrl('images/icons/body-shop-icons_wishlist_filled.svg'); ?>" width="38" src='<?php echo $this->getViewFileUrl('images/icons/icon-wishlist-black.svg'); ?>' alt="Wish list"></span></a><?php }else{?>
-    <a href="#" data-post='<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product) ?>' class="action towishlist" data-action="add-to-wishlist"><span class="wish-list lineheight48"><img data-alt-src="<?php echo $block->getViewFileUrl('images/icons/body-shop-icons_wishlist_filled.svg'); ?>" width="38" src='<?php echo $this->getViewFileUrl('images/icons/icon-wishlist.svg'); ?>' alt="Wish list"></span></a><?php } ?>
-    <?php
-}else{ ?>
-
-    <a href="#" data-post='<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product) ?>' class="action towishlist" data-action="add-to-wishlist"><span class="wish-list lineheight48"><img data-alt-src="<?php echo $block->getViewFileUrl('images/icons/body-shop-icons_wishlist_filled.svg'); ?>" width="38" src='<?php echo $this->getViewFileUrl('images/icons/icon-wishlist.svg'); ?>' alt="Wish list"></span></a>
-    <?php
-}
-?>
+                        ?>                        
             <div class="col-3">
                 <div class="popular-panel">
                                 
-                                <figure onclick="location.href=<?php echo $producturl ;?>" style="background: rgba(0,0,0,0.5); cursor: pointer;">
-                                <img src="<?php echo $imageUrl; ?>" alt="">
-                                <?php if($is_most == 'Yes' && $is_most_text) { ?>
+                                <figure style="background: rgba(0,0,0,0.5); cursor: pointer;">
+                                    <a href="<?php echo $producturl ;?>">
+                                         <img src="<?php echo $imageUrl; ?>" alt="">
+                                    </a>
+                               <?php if($is_most == 1 && $is_most_text) { ?>
                                         <figcaption><?php echo $is_most_text; ?></figcaption>
                                     <?php } ?>  
                                 
                                 <a href="#" data-post='<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product); ?>' class="action towishlist" data-action="add-to-wishlist"><i class="fav-icon"></i></a>
                             </figure>
                             <div class="popular-text">
-                                    <h4 onclick="location.href=<?php echo $producturl ;?>" style="cursor: pointer;"><?php echo $pname; ?></h4>
+                                    <h4 style="cursor: pointer;"><a href="<?php echo $producturl ;?>"><?php echo $pname; ?></a></h4>
                                     <?php if($_product->getSpecialPrice() > 0) { ?>
                                     <div class="d-flex">
                                         <span class="pricetag oldpricetag">Elders  <sub><?php echo $orgprice; ?>,-</sub></span>
@@ -329,88 +311,97 @@ if($customerSession->isLoggedIn()) {
      */
     $pos = $block->getPositioned();
     ?>
-    <div class="row products wrapper <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>">
+   <!-- main-block -->
+    <aside class="main-block popular-block">
+      <div class="row row-less20 products wrapper <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>">
             <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <input type="hidden" value="<?php echo $_productCollection->count(); ?>" id="lnv">
             <?php 
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $helperImport = $objectManager->get('\Magento\Catalog\Helper\Image');
+            $whish = $objectManager->get('\Magento\Wishlist\Helper\Data');
+            $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+
+            $i=1;
             foreach ($_productCollection as $_product) :
 
-                 $pname=$_product->getName();
+                        $pname=$_product->getName();
                         
                          $producturl=$_product->getProductUrl();
-                         $psdescription=$_product->getShortDescription();
-                      
-                        $imageUrl = $this->getUrl().'pub/media/catalog/product'.$_product->getImage();
-                        
+                         $psdescription=$_product->getShortDescription();  
+                         $is_most =  $_product['most_popular_procuct'];
+                         $is_most_text = $_product['most_popular_ribbon_text'];
+                      /*   
+                       echo "<pre>";
+                       var_dump($_product->debug());
+                       echo "</pre>"; */
 
-                        ?>
-            <div class="col1 col134">
-                <div class="product-panel">
-                                <div class="top-panel">
-                                    <figure><a href="<?php echo $producturl ;?>"><img src="<?php echo $imageUrl;?>"></a></figure>
-                                    <h5><a href="<?php echo $producturl ;?>"><?php echo $pname; ?></a></h5>
-                                    <div class="ratings">
-                                        <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
-                                        <!-- <span> <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span><sub>21 reviews</sub>  --></div>
-                                    <div class="usp-block">
-                                        <?php echo  $psdescription; ?>
+                       //echo $attrTestValue = $_getMyAttr->getFrontend()->getValue($_product);
+                      // $attribute_value = Mage::getResourceModel('catalog/product')->getAttributeRawValue($product_id, $attribute_code, $store_id);
+
+                      
+                        //$imageUrl = $this->getUrl().'pub/media/catalog/product'.$_product->getImage();
+                        $imageUrl = $helperImport->init($_product, 'product_page_image_large')->setImageFile($_product->getFile())->resize(298,256)->getUrl();
+
+                         $orgprice = $priceHelper->currency($_product->getPrice() , true, false);
+                         $specialprice = $priceHelper->currency($_product->getSpecialPrice(), true, false);  
+                         $StockState = $objectManager->get('\Magento\CatalogInventory\Api\StockStateInterface');
+                         $StockState->getStockQty($_product->getId(), $_product->getStore()->getWebsiteId());
+
+                        ?>                        
+            <div class="col-3">
+                <div class="popular-panel">
+                                
+                                <figure style="background: rgba(0,0,0,0.5); cursor: pointer;">
+                                    <a href="<?php echo $producturl ;?>">
+                                         <img src="<?php echo $imageUrl; ?>" alt="">
+                                    </a>
+                               <?php if($is_most == 1 && $is_most_text) { ?>
+                                        <figcaption><?php echo $is_most_text; ?></figcaption>
+                                    <?php } ?>  
+                                
+                                <a href="#" data-post='<?php echo $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product); ?>' class="action towishlist" data-action="add-to-wishlist"><i class="fav-icon"></i></a>
+                            </figure>
+                            <div class="popular-text">
+                                    <h4 style="cursor: pointer;"><a href="<?php echo $producturl ;?>"><?php echo $pname; ?></a></h4>
+                                    <?php if($_product->getSpecialPrice() > 0) { ?>
+                                    <div class="d-flex">
+                                        <span class="pricetag oldpricetag">Elders  <sub><?php echo $orgprice; ?>,-</sub></span>
+                                        <?php if($specialprice) { ?>
+                                        <span class="pricetag">Vanaf <sub><?php echo $specialprice; ?>,-</sub></span>
+                                        <?php } ?>
                                     </div>
-                                    <div class="price">
-                                        <span> <?= /* @noEscape */ $block->getProductPrice($_product) ?></span>
-                                         <?php if ($_product->isAvailable()) :?>
-                                            <sub><?= $block->escapeHtml(__('In stock')) ?></sub>
+                                   <?php } else { ?>
+                                    <div class="d-flex">                                       
+                                        
+                                        <span class="pricetag">Vanaf <sub><?php echo $orgprice; ?>,-</sub></span>
+                                        
+                                    </div>
+                                   <?php } ?>
+                                    <?php if ($_product->isAvailable()) :?>
+                                            <span class="check-list"><?= $block->escapeHtml(__('Uit voorraad leverbaar')) ?></span>
                                         <?php else :?>
-                                           <sub1><?= $block->escapeHtml(__('Out of stock')) ?></sub1>
+                                           <span class="list"><?= $block->escapeHtml(__('Binnen 4 weken in huis')) ?></span>
                                         <?php endif; ?>
-                                        <!-- <sub>Op voorraad</sub> -->
-                                    </div>
+                                    
                                 </div>
-                                <?php $postParams = $block->getAddToCartPostParams($_product); ?>
-                                <form data-role="tocart-form" data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
-                                action="<?= $block->escapeUrl($postParams['action']) ?>" method="post">
-                                <input type="hidden" name="product" value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
-                                <input type="hidden" name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
-                                <?= $block->getBlockHtml('formkey') ?>
-                                <div class="bottom-panel">
-                                <div class="field qty">
-                                <div class="control qty-change">
-                                <ul class="number">
-                                <li class="minus">
-                                <p class="input-group-btn">
-                                <button class="decreaseqty3">-</button>
-                                </p>
-                                </li>
-                                <input type="hidden"
-                                name="qty"
-                                id="qty"
-                                value="1"
-                                title="<?= /* @escapeNotVerified */ __('Qty') ?>"
-                                class="input-text qty"
-                                data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
-                                />
-                                <li> 
-                                <span class="qty-label"> 1 </span>
-                                </li>
-                                <li class="plus">
-                                <p class="input-group-btn"> 
-                                <button class="increaseqty3">+</button>
-                                </p>
-                                </li>
-                                </ul>
-                                </div>
-                                </div>
-                                <div class="btn">
-                                <button type="submit"
-                                title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
-                                class="action tocart primary">
-                                <span><i class="fas fa-shopping-cart"></i><?= $block->escapeHtml(__('Add to Cart')) ?></span>
-                                </button>
-                                </div> 
-                                </div> 
-                                </form>
+                                
                                 </div>
                        </div>
-            <?php  endforeach; ?>
-    </div>
+                       <?php if($i % 6 == 0): ?>
+                          <?php   $objectManager14 = \Magento\Framework\App\ObjectManager::getInstance();
+                            $category14 = $objectManager14->get('Magento\Framework\Registry')->registry('current_category');
+                         ?>
+                           <?php 
+                           if($category14):
+                           echo $category14->getCetegoryBannerImage();
+                            endif;
+                           ?>
+                          
+                    <?php endif; ?>
+            <?php $i++; endforeach; ?>
+      </div>
+    </aside>
     <?= $block->getToolbarHtml() ?>
     <?php if (!$block->isRedirectToCartEnabled()) :?>
         <script type="text/x-magento-init">

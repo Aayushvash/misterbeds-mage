@@ -75,6 +75,11 @@
 						 $specialprice = $priceHelper->currency($product->getSpecialPrice(), true, false);	
 						 $is_most = $product->getAttributeText('most_popular_procuct'); 
 						 $is_most_text = $product->getData('most_popular_ribbon_text');
+						  $_getMyAttr = $product->getResource()->getAttribute('most_popular_ribbon_text');
+						  $attrTestValue = $_getMyAttr->getFrontend()->getValue($product);
+						  /* echo "<pre>";
+                       var_dump($_getMyAttr->debug());
+                       echo "</pre>"; */
 						 //$wishlistHelper->getWishlistItemCollection()->addFieldToFilter('product_id', $product->getId());	
 						// $postDataHelper = $objectManager->helper('Magento\Framework\Data\Helper\PostHelper');
                         //echo $postData = $postDataHelper->getPostData($block->getAddToCartUrl($product), ['product' => $product->getEntityId()])			 
