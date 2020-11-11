@@ -9,6 +9,7 @@
 <sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
     <section name="StorefrontProductInfoMainSection">
+        <element name="productName" type="text" selector=".page-title-wrapper.product"/>
         <element name="priceFrom" type="text" selector=".product-info-price .price-from"/>
         <element name="priceTo" type="text" selector=".product-info-price .price-to"/>
         <element name="minPrice" type="text" selector="span[data-price-type='minPrice']"/>

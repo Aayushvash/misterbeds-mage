@@ -857,6 +857,8 @@ body.catalog-category-view .sidebar.sidebar-main {
 .popular-block {
     padding-top: 30px;
     padding-bottom: 50px;
+    margin-left:-15px;
+    margin-right:-15px;
 }
 .popular-block h3 {
     margin-bottom: 22px;
@@ -1378,14 +1380,230 @@ address a {
 }
 
 /* productDesc-block */
-.productDesc-block {
+.container .container {
+	padding-right:0px !important;
+	padding-left:0px !important;
+} 
+.page-title-wrapper.product {
+	display: none;
+}
+
+
+.catalog-product-view.page-layout-1column .column.main {
     padding-top: 28px;
 }
-.productDesc-block .column-left {
+.catalog-category-view.page-layout-2columns-left .productDesc-block {
+	padding-top:0px;
+	margin-left:-15px;
+	margin-right:-15px;
+}
+.catalog-category-view.page-layout-2columns-left .productDesc-block + .sidebar.sidebar-main {
+	display: none;
+}
+
+.catalog-product-view.page-layout-1column .column .price-box.price-final_price {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row-reverse;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+.catalog-product-view.page-layout-1column .column  .swatch-attribute .swatch-input {
+	display: none;
+}
+.catalog-product-view.page-layout-1column .column .price-box.price-final_price span.price-wrapper  {
+	display: block;
+    color: #0093d6;
+    font-weight: 500;
+    font-size: 20px;
+    font-style: normal;
+    letter-spacing: 1.11px;
+    line-height: normal;
+    font-family: 'MuseoSans';
+}
+.catalog-product-view.page-layout-1column .column  .product-add-form .swatch-opt select {
+	display: block;
+    min-height: 55px;
+    border-radius: 8px;
+    border: 1px solid #dddddd;
+    width: 100%;
+    color: #4a4748;
+    font-weight: 500;
+    font-size: 14px;
+    font-style: normal;
+    letter-spacing: 1px;
+    line-height: normal;
+    padding: 28px 50px 5px 22px;
+    background: url(../images/arrow-down-icon.svg)no-repeat center right 17px;
+    outline: none;
+    appearance :none;
+    -webkit-appearance :none;
+}
+.catalog-product-view.page-layout-1column .column  .product-add-form .swatch-opt input.swatch-input,
+.catalog-product-view.page-layout-1column .column .product-add-form .swatch-opt .swatch-attribute span.swatch-attribute-selected-option {
+	display: none;
+}
+.catalog-product-view.page-layout-1column .column .fieldset,
+.catalog-product-view.page-layout-1column .column .swatch-opt {
+	outline: none;
+}
+.catalog-product-view.page-layout-1column .column .swatch-opt .swatch-attribute-options .swatch-option.color {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #eee;
+	cursor: pointer;
+} 
+.catalog-product-view.page-layout-1column .column .product-options-bottom .box-tocart,
+.product-info-main .box-tocart .field.qty, .product-options-bottom .box-tocart .field.qty {
+	width: 100% !important;
+	display: block !important;
+}
+.catalog-product-view.page-layout-1column .column .product-options-bottom .box-tocart {
+	margin-bottom: 20px;
+}
+.catalog-product-view.page-layout-1column .column .product-options-bottom .box-tocart .fieldset .field.qty {
+	width:100% !important;
+	display: flex !important;
+	display: -webkit-flex !important;
+    margin-bottom: 0px;
+    outline: none;
+     
+}
+.catalog-product-view.page-layout-1column .column .product-options-bottom .box-tocart .fieldset .field.qty button,
+.catalog-product-view.page-layout-1column .column input#qty {
+	color: #000 !important;
+	font-weight: 300;
+	font-size: 16px !important;
+	font-style: normal;
+	letter-spacing: 1px;
+	line-height: normal;	
+	outline: none;
+	font-family: 'MuseoSans' !important;
+}
+.catalog-product-view.page-layout-1column .column  #reviews {
+	display: none !important;
+}
+.catalog-product-view.page-layout-1column .column .product-options-bottom .box-tocart .fieldset .field.qty label {
+	display: none;
+}
+.catalog-product-view.page-layout-1column .column  .product-add-form .swatch-opt .swatch-attribute-options {
+	outline: none;
+}
+.catalog-product-view.page-layout-1column .column  .product-add-form .swatch-opt .swatch-attribute-selected-option {
+	font-weight: 700;
+	text-transform: capitalize;
+	font-size: 16px;
+    font-style: normal;
+    letter-spacing: 1px;
+    line-height: normal;
+    margin-bottom: 22px;
+    padding-left:5px;
+    display: inline-block;
+}
+.catalog-product-view.page-layout-1column .column .product-add-form .swatch-opt .swatch-attribute-label {
+	    position: absolute;
+    top: 8px;
+    left: 22px;
+    display: inline-block;
+    color: #a5a5a5;
+    font-weight: 700;
+    font-size: 14px;
+    font-style: normal;
+    letter-spacing: 1px;
+    line-height: normal;
+}
+.catalog-product-view.page-layout-1column .column  .product-add-form .swatch-opt .swatch-attribute {
+	position: relative;
+	margin-bottom: 22px;
+}
+.catalog-product-view.page-layout-1column .column  .product-add-form .swatch-opt .swatch-attribute.color span.swatch-attribute-label {
+	position: initial;
+	left:initial;
+	top:initial;
+	cursor: pointer;
+	display: inline-block;
+    color: #4a4748;
+    font-weight: 300;
+    font-size: 16px;
+    font-style: normal;
+    letter-spacing: 1px;
+    line-height: normal;
+    margin-bottom: 22px;
+}
+.catalog-product-view.page-layout-1column .product-info-main {
+	width: 100% !important;
+}
+.catalog-product-view.page-layout-1column .column span.normal-price {
+	padding-left: :10px;
+	position: relative;
+}
+.catalog-product-view.page-layout-1column .column span.old-price {
+	padding-right:10px;
+	position: relative;
+}
+.catalog-product-view.page-layout-1column .row.row-item {
+	margin-left:-15px !important;
+	margin-right: -15px !important;
+}
+ 
+.catalog-product-view.page-layout-1column .column span.old-price:before {
+	content: "Elders";
+	display: block;
+	color: #a5a5a5;
+	font-weight: 300;
+	font-size: 14px;
+	font-style: normal;
+	letter-spacing: 0.88px;
+	line-height: normal;
+	margin-bottom: 8px;
+}
+.catalog-product-view.page-layout-1column .column span.normal-price:before{
+	content: "Vanaf";
+	display: block;
+    color: #4a4748;
+    font-weight: 300;
+    font-size: 14px;
+    font-style: normal;
+    letter-spacing: 0.88px;
+    line-height: normal;
+    margin-bottom: 8px;
+}
+.catalog-product-view.page-layout-1column .column .price-box.price-final_price span.old-price span.price-wrapper {
+	color: #a5a5a5;
+	text-decoration: line-through;
+	font-weight: 500;
+}
+.catalog-product-view.page-layout-1column .column.main .row.row-details {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row-reverse;
+}
+.catalog-product-view button#product-addtocart-button {
+	display: block;
+    min-width: 320px;
+    border-radius: 8px  !important;
+    border: 0px;
+    text-align: left;
+    color: #ffffff !important;
+    font-weight: 500  !important;
+    font-size: 18px  !important;
+    line-height: 22px  !important;
+    font-style: normal;
+    letter-spacing: 1px;   
+    padding: 18px 23px !important;
+    background: #0093d6 url(../images/shopping-cartbtn-white.svg)no-repeat center right 15px  !important;
+    cursor: pointer;
+    outline: none;
+}
+.catalog-product-view.page-layout-1column .column.main .column-left {
 	max-width: 67%;
 	width: 100%;
 }
-.productDesc-block .column-right {
+.catalog-product-view.page-layout-1column .column.main .column-right {
 	max-width: 33%;
 	width: 100%;
 }
@@ -1464,17 +1682,28 @@ address a {
 	letter-spacing: 1.11px;
 	line-height: normal;
 }
-.productDesc-block .tagline2 {
+.catalog-product-view.page-layout-1column .column.main .tagline2 {
     margin-bottom: 7px;
     display: block;
 }
-.productDesc-block h2 {
+.catalog-product-view.page-layout-1column .column.main h2,
+.catalog-product-view.page-layout-1column .column.main h1.page-title {
     margin-bottom: 20px;
 }
-.productDesc-block .price-panel {
+.catalog-product-view.page-layout-1column .column.main h1.page-title {
+	color: #273577;
+    font-family: 'Gilroy';
+    font-size: 28px;
+    font-weight: 800;
+    font-style: normal;
+    letter-spacing: 0.93px;
+    line-height: normal;
+}
+
+.catalog-product-view.page-layout-1column .column .price-panel {
     margin-bottom: 20px;
 }
-.productDesc-block .size-panel {
+.catalog-product-view.page-layout-1column .column .size-panel {
     margin-bottom: 18px;
 }
 .size-panel .size-panel-title {
@@ -1549,8 +1778,14 @@ address a {
 	max-width: calc(100% - 75px);
 	width: 100%;
 }
-.productDesc-block .ul-check-list {
+.catalog-product-view.page-layout-1column .column.main .ul-check-list {
     margin-bottom: 18px;
+}
+.catalog-product-view.page-layout-1column .column.main .product.info.detailed {
+	display: none;
+}
+.page-footer {
+	display: none !important;
 }
 .accordion-panel {
 	

@@ -7,6 +7,11 @@
 /**
  * @var $block \Magento\Theme\Block\Html\Title
  */
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');//get current category
+//echo $category->getId();
+//echo $category->getName();
+
 $cssClass = $block->getCssClass() ? ' ' . $block->getCssClass() : '';
 $titleHtml = '';
 if (trim($block->getPageHeading())) {
@@ -20,6 +25,11 @@ if (trim($block->getPageHeading())) {
 <?php if ($titleHtml) : ?>
 <div class="container">    
 <div class="page-title-wrapper<?= $block->escapeHtmlAttr($cssClass) ?>">
+     <?php if(is_null($category)) { ?>
+    
+<?php  } else { ?>
+        <span class="tagline2"><?php echo $category->getName(); ?></span>
+<?php } ?>
     <h1 class="page-title"
         <?php if ($block->getId()) : ?> id="<?= $block->escapeHtmlAttr($block->getId()) ?>" <?php endif; ?>
         <?php if ($block->getAddBaseAttributeAria()) : ?>
@@ -31,3 +41,12 @@ if (trim($block->getPageHeading())) {
 </div>
 </div>
 <?php endif; ?>
+<script>
+    require([
+        'jquery',
+        'js/select/Selectyze.jquery'        
+    ], function($){
+        $titls = $('.page-title-wrapper.product').html();
+        $('.catalog-product-view.page-layout-1column .column.main .column-right').prepend($titls);
+    });
+</script>

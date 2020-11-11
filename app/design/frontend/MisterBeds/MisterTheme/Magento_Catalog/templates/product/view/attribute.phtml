@@ -42,20 +42,36 @@ if ($_attributeType && $_attributeType == 'text') {
     $_attributeValue = $_helper->productAttribute($_product, $_product->$_call(), $_code);
 }
 ?>
-
-<?php if ($_attributeValue): ?>
-<div class="product attribute <?= /* @escapeNotVerified */ $_className ?>">
-    <?php if ($renderLabel): ?><strong class="type"><?= /* @escapeNotVerified */ $_attributeLabel ?></strong><?php endif; ?>
-    <div class="usp-block usp-blockvalue value" <?= /* @escapeNotVerified */ $_attributeAddAttribute ?>><?= /* @escapeNotVerified */ $_attributeValue ?></div>
-</div>
-<?php if($_className=='overview'){?>
-<?php
-echo $this->getLayout()
-->createBlock('Magento\Cms\Block\Block')
-->setBlockId('short_description_down')
-->toHtml();
+<div class="accordion-panel">
+<?php if ($_attributeValue): 
+		
 ?>
-<?php } ?>	
+<div class="accordion-row">
+	<div class="product attribute <?= /* @escapeNotVerified */ $_className ?>">
+		<div class="accordion-title strng-title"><?php echo __('Beschrijving') ?></div>
+	    <?php if ($renderLabel): ?><strong class="type"><?= /* @escapeNotVerified */ $_attributeLabel ?></strong><?php endif; ?>
+	    <div class="usp-block usp-blockvalue value accordion-content" <?= /* @escapeNotVerified */ $_attributeAddAttribute ?>><div><?= /* @escapeNotVerified */ $_attributeValue ?></div></div>
+	</div>
+</div>
+<?php if($_className=='overview'){ 
+$myattribute = $_product->getResource()->getAttribute('format_product')->getFrontend()->getValue($_product);
+
+if($myattribute){
+	?>
+<div class="accordion-row">	
+		<div class="accordion-title strng-title"><?php echo __('Formaat product') ?></div>
+		<div class="accordion-content">
+
+			<div>	
+				<?php echo $myattribute; ?>
+				
+			</div>
+		</div>
+</div>
+<?php } } ?>	
 <?php endif; ?>
+</div>
+
+
 
 

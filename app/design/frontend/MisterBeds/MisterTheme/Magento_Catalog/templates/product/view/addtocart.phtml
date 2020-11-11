@@ -43,6 +43,19 @@
     </div>
 </div>
 <?php endif; ?>
+<ul class="ul-check-list">
+  <?php if ($_product->isAvailable()) :?>
+    <li><?= $block->escapeHtml(__('Uit voorraad leverbaar')) ?></li>
+ <?php else : ?>
+    <li><?= $block->escapeHtml(__('Binnen 4 weken in huis')) ?></li>
+  <?php endif; ?>
+  <li><?php
+    echo $this->getLayout()
+    ->createBlock('Magento\Cms\Block\Block')
+    ->setBlockId('free_delivery_text')
+    ->toHtml();
+  ?></li>
+</ul>
 <script type="text/x-magento-init">
     {
         "#product_addtocart_form": {

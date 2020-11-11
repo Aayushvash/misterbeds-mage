@@ -12,7 +12,7 @@ $finalPriceModel = $block->getPriceType('final_price');
 $idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
 $schema = ($block->getZone() == 'item_view') ? true : false;
 ?>
-<span class="normal-price">
+<span class="normal-price dd">
     <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
         'display_label' => __('As low as'),
         'price_id' => $block->getPriceId('product-price-' . $idSuffix),
